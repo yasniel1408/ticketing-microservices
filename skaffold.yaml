@@ -1,0 +1,29 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: ticketing-microservices
+build:
+  artifacts:
+  - image: yasniel1408/auth
+    context: auth
+    docker:
+      dockerfile: Dockerfile
+    sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
+  - image: yasniel1408/payment
+    context: payment
+    docker:
+      dockerfile: Dockerfile
+    sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
+manifests:
+  rawYaml:
+  - infra/k8s/deployments/auth-deployment.yaml
+  - infra/k8s/deployments/payment-deployment.yaml
+  - infra/k8s/ingress-load-balancer/ingress-load-balancer.yaml
+  - infra/k8s/services/auth-services-ip-cluster.yaml
+  - infra/k8s/services/payment-services-ip-cluster.yaml

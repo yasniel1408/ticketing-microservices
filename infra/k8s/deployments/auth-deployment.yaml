@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: "yasniel1408/auth:latest"
+          resources:
+            limits:
+              cpu: 400m
+              memory: 800Mi
+            requests:
+              cpu: 300m
+              memory: 500Mi
