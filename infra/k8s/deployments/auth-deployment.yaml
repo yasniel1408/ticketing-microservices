@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: auth
-          image: "yasniel1408/auth:latest"
+          image: "us.gcr.io/ticketing-microservices-369119/auth:latest"
           resources:
             limits:
-              cpu: 400m
+              cpu: 1000m
               memory: 800Mi
             requests:
               cpu: 300m

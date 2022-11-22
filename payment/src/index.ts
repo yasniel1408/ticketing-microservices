@@ -4,8 +4,8 @@ import { json } from "body-parser";
 const app = express();
 app.use(json());
 
-app.get("/", (req, res) => {
-  res.json({ hello: "HOLA" });
+app.get("/api/payment", (req, res) => {
+  res.json({ hello: "HOLA DESDE K8S GCP!!!!!" });
 });
 
 app.listen(3000, () => {

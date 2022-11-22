@@ -4,7 +4,7 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
-build:
+build:  
   local:
     push: false
   artifacts:
