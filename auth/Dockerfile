@@ -1,8 +1,13 @@
-FROM node:alpine
+FROM node:18.4.0-alpine
 
-WORKDIR /app
-COPY package.json .
+COPY ["./package.json", "./package-lock.json", "/usr/src/"]
+
+WORKDIR /usr/src
+
 RUN npm install
-COPY . .
+
+COPY ["./", "/usr/src/"]
+
+EXPOSE 3000
 
 CMD ["npm", "start"]

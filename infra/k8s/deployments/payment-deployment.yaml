@@ -15,10 +15,3 @@ spec:
       containers:
         - name: payment
           image: "us.gcr.io/ticketing-microservices-369119/payment:latest"
-          resources:
-            limits:
-              cpu: 1000m
-              memory: 800Mi
-            requests:
-              cpu: 300m
-              memory: 350Mi

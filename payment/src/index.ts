@@ -9,5 +9,5 @@ app.get("/api/payment", (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("PAYMENT SERVICE- Listening on port 3000!!!!!!!!!!!!!");
+  console.log("PAYMENT SERVICE => Listening on port 3000!!!!!!!!!!!!!");
 });

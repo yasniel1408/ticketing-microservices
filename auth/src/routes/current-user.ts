@@ -2,8 +2,8 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/api/users/currentuser", (res, req) => {
-  req.json({ name: "Yasniel" });
+router.get("/api/users/currentuser", (req, res) => {
+  res.json({ name: "Yasniel!!!!!" });
 });
 
 export { router as currentUserRouter };
