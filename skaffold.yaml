@@ -24,8 +24,12 @@ build:
             src: "src/**/*.ts"
 manifests:
   rawYaml:
-    - infra/k8s/deployments/auth-deployment.yaml
-    - infra/k8s/deployments/payment-deployment.yaml
-    - infra/k8s/ingress-load-balancer/ingress-load-balancer.yaml
-    - infra/k8s/services/auth-services-ip-cluster.yaml
-    - infra/k8s/services/payment-services-ip-cluster.yaml
+    - infra/k8s/auth/auth-deployment.yaml
+    - infra/k8s/auth/auth-mongodb-deployment.yaml
+    - infra/k8s/payment/payment-deployment.yaml
+
+    - infra/k8s/ingress-load-balancer.yaml
+
+    - infra/k8s/auth/auth-services-ip-cluster.yaml
+    - infra/k8s/auth/auth-mongodb-services-ip-cluster.yaml
+    - infra/k8s/payment/payment-services-ip-cluster.yaml

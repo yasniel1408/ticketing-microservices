@@ -1,26 +1,46 @@
 import express from "express";
+import "express-async-errors"; // esto resuleve el problea de lanzar errores en funciones con async
 import { json } from "body-parser";
 
-import { currentUserRouter } from "./routes/current-user";
-import { signinUserRouter } from "./routes/signin";
-import { signoutUserRouter } from "./routes/signout";
-import { signupUserRouter } from "./routes/signup";
-import { errorHandler } from "./middlewares/error-handler";
+import { NotFoundError } from "./common/errors/not-found-error";
+import MongoDBConnection from "./common/db/mongo-db-connection";
+import RouteControllerBase from "./common/route-controller-base";
+import ErrorHandlerMiddleware from "./common/middlewares/error-handler-middleware";
+import VerifyErrorMiddleware from "./common/middlewares/verify-errror-middleware";
+import { SignupRouteController } from "./auth/controllers/signup-route-controller";
 
 const app = express();
 app.use(json());
 
-app.get("/api/users", (req, res) => {
-  res.json({ hello: "HOLA DESDE K8S GCP!!!!!" });
-});
+export class MainApp {
+  routes: Array<RouteControllerBase> = [];
 
-app.use(currentUserRouter);
-app.use(signinUserRouter);
-app.use(signoutUserRouter);
-app.use(signupUserRouter);
+  constructor() {
+    this.routes.push(new SignupRouteController(app));
 
-app.use(errorHandler);
+    app.get("/api/users", (req, res) => {
+      res.json({ hello: "Auth Service" });
+    });
+  }
 
-app.listen(3000, () => {
-  console.log("AUTH SERVICE => Listening on port 3000!!!!!!!!");
-});
+  start = async () => {
+    MongoDBConnection.sync();
+    app.listen(3000, () => {
+      this.routes.forEach((route: RouteControllerBase) => {
+        console.log(`Routes configured for ${route.getName()}`);
+      });
+      app.all("*", async () => {
+        throw new NotFoundError();
+      });
+
+      // Middlewares
+      app.use(ErrorHandlerMiddleware.handler);
+      app.use(VerifyErrorMiddleware.verify);
+
+      console.log("AUTH SERVICE => Listening on port 3000");
+    });
+  };
+}
+
+const mainApp = new MainApp();
+mainApp.start();

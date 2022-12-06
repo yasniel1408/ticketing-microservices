@@ -12,6 +12,7 @@ export class RequestValidationError extends CustomBaseError {
   }
 
   serializeError(): IResponseErrorInterface {
+    console.log(this.errors);
     const formattedError = this.errors.map(({ msg, param }) => ({
       message: msg,
       field: param,
