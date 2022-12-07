@@ -12,12 +12,9 @@ class VerifyIfExistEmail {
     const { email } = req.body;
     const user = await UserDao.findOne({ email });
 
-    console.log(user)
-
     if (user) {
       throw new ExistingEmailError();
     }
-
     next();
   };
 }
