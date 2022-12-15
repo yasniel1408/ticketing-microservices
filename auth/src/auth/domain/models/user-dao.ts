@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import {HashPasswordService} from "../../services/hash-password-service";
+import { UserDto } from "./user-dto";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema<UserDto>({
   email: {
     type: String,
     require: true,
@@ -20,6 +21,6 @@ userSchema.pre('save', async function(done) {
   done();
 });
 
-const UserDao = mongoose.model("User", userSchema);
+const UserDao = mongoose.model<UserDto>("User", userSchema);
 
 export { UserDao };

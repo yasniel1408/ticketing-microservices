@@ -36,7 +36,7 @@ export class MainApp {
   start = async () => {
     if(!process.env.JWT_KEY) throw new Error("JWT_KEY undefined!!!")
     this.routes.forEach((route: RouteControllerBase) => {
-      console.log(`Routes configured for ${route.getName()}`);
+      console.log(`Routes configured for ${route.name}, with path: ${route.path}`);
     });
     app.listen(3000, () => {
       console.log("AUTH SERVICE => Listening on port 3000");

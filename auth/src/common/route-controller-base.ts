@@ -1,18 +1,8 @@
 import express from "express";
 
 export default abstract class RouteControllerBase {
-  app: express.Application;
-
-  name: string;
-
-  constructor(app: express.Application, name: string) {
-    this.app = app;
-    this.name = name;
+  constructor(public app: express.Application,public name: string,public path: string) {
     this.configureRoutes();
-  }
-
-  getName(): string {
-    return this.name;
   }
 
   abstract configureRoutes(): express.Application;
