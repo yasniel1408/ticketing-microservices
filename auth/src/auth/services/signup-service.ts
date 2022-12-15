@@ -1,8 +1,8 @@
-import { UserDto } from "../../users/models/user-dto";
-import UserRepository from '../../users/repository/user-repository';
+import UserRepository from '../domain/repository/user-repository';
+import {UserSignupResponseDto} from "../api/models/user-signup-response-dto";
 
 class SignupService {
-  async signup(user: UserDto) {
+  async signup(user: any): Promise<UserSignupResponseDto> {
     const userCreated = await UserRepository.create(user);
     return userCreated;
   }

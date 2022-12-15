@@ -1,6 +1,7 @@
-import { CRUDRepository } from "../../common/interfaces/crud-repository";
+import { CRUDRepository } from "../../../common/interfaces/crud-repository";
 import { UserDao } from "../models/user-dao";
 import { UserDto } from "../models/user-dto";
+import {UserSignupResponseDto} from "../../api/models/user-signup-response-dto";
 
 class UserRepository implements CRUDRepository<UserDto> {
   async findAll(limit: number = 10, page: number = 0): Promise<any[]> {
@@ -10,7 +11,7 @@ class UserRepository implements CRUDRepository<UserDto> {
       .exec();
   }
 
-  async create(resource: UserDto): Promise<any> {
+  async create(resource: UserSignupResponseDto): Promise<any> {
     const user = new UserDao(resource);
     await user.save();
     return user;

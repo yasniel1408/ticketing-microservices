@@ -6,10 +6,17 @@ import { NotFoundError } from "./common/errors/not-found-error";
 import MongoDBConnection from "./common/db/mongo-db-connection";
 import RouteControllerBase from "./common/route-controller-base";
 import ErrorHandlerMiddleware from "./common/middlewares/error-handler-middleware";
-import { SignupRouteController } from "./auth/controllers/signup-route-controller";
+import VerifyErrorMiddleware from "./common/middlewares/verify-errror-middleware";
+import { SignupRouteController } from "./auth/api/controllers/signup-route-controller";
+import cookieSession from "cookie-session"
 
 const app = express();
+app.set("trust proxy", true); // esto es para que podamos ingresar y confiar en el proxy
 app.use(json());
+app.use(cookieSession({
+  signed: false, // esto es para desactivar el encriptado de las cookies
+  secure: true, // esto es para agregar seguridad de que solo se puede ingresar por https
+}))
 
 export class MainApp {
   routes: Array<RouteControllerBase> = [];
@@ -20,11 +27,14 @@ export class MainApp {
     app.all("*", async () => {
       throw new NotFoundError();
     });
+
+    // Middlewares
+    app.use(ErrorHandlerMiddleware.handler);
+    app.use(VerifyErrorMiddleware.verify);
   }
 
   start = async () => {
-    // Middlewares
-    app.use(ErrorHandlerMiddleware.handler);
+    if(!process.env.JWT_KEY) throw new Error("JWT_KEY undefined!!!")
     this.routes.forEach((route: RouteControllerBase) => {
       console.log(`Routes configured for ${route.getName()}`);
     });

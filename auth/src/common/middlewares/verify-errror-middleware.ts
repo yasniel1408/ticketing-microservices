@@ -6,8 +6,6 @@ class VerifyErrorMiddleware {
   verify = (err: Error, req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
 
-    console.log("OKOKKOKKOKOKOKOKOOK")
-
     if (!errors.isEmpty()) {
       throw new RequestValidationError(errors.array());
     }
