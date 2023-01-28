@@ -6,9 +6,9 @@ import { NotFoundError } from "./common/errors/not-found-error";
 import MongoDBConnection from "./common/db/mongo-db-connection";
 import RouteControllerBase from "./common/route-controller-base";
 import ErrorHandlerMiddleware from "./common/middlewares/error-handler-middleware";
-import VerifyErrorMiddleware from "./common/middlewares/verify-errror-middleware";
-import { SignupRouteController } from "./auth/api/controllers/signup-route-controller";
+import { SignUpRouteController } from "./auth/api/controllers/signup-route-controller";
 import cookieSession from "cookie-session"
+import { SignInRouteController } from "./auth/api/controllers/signin-route-controller";
 
 const app = express();
 app.set("trust proxy", true); // esto es para que podamos ingresar y confiar en el proxy
@@ -23,14 +23,14 @@ export class MainApp {
 
   constructor() {
     // Routes
-    this.routes.push(new SignupRouteController(app));
+    this.routes.push(new SignUpRouteController(app));
+    this.routes.push(new SignInRouteController(app));
     app.all("*", async () => {
       throw new NotFoundError();
     });
 
     // Middlewares
     app.use(ErrorHandlerMiddleware.handler);
-    app.use(VerifyErrorMiddleware.verify);
   }
 
   start = async () => {

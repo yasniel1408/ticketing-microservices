@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
         - name: auth
-          image: "us.gcr.io/ticketing-microservices-369119/auth:latest"
+          # image: "us.gcr.io/ticketing-microservices-369119/auth:latest"  // GCP
+          image: "yasniel1408/auth:latest"
           env:
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-

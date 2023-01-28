@@ -14,4 +14,5 @@ spec:
     spec:
       containers:
         - name: payment
-          image: "us.gcr.io/ticketing-microservices-369119/payment:latest"
+          # image: "us.gcr.io/ticketing-microservices-369119/payment:latest"
+          image: "yasniel1408/payment:latest"

@@ -1,18 +1,17 @@
-import { HydratedDocument } from "mongoose";
 import { CRUDRepository } from "../../../common/interfaces/crud-repository";
 import { UserDao } from "../models/user-dao";
 import { UserDto } from "../models/user-dto";
 
 class UserRepository implements CRUDRepository<UserDto> {
-  async findAll(limit = 10, page = 0): Promise<HydratedDocument<UserDto>[]> {
+  async findAll(limit = 10, page = 0): Promise<any[]> {
     return UserDao.find()
       .limit(limit)
       .skip(limit * page)
       .exec();
   }
 
-  async create(resource: UserDto): Promise<HydratedDocument<UserDto>> {
-    const user: HydratedDocument<UserDto> = new UserDao(resource);
+  async create(resource: UserDto): Promise<any> {
+    const user: any = new UserDao(resource);
     await user.save();
     return user;
   }

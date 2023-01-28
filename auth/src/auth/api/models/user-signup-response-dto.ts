@@ -1,4 +1,4 @@
 export interface UserSignupResponseDto {
-    _id: string;
+    id: string;
     email: string;
 }

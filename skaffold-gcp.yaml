@@ -3,8 +3,10 @@ kind: Config
 metadata:
   name: ticketing-microservices
 build:
+  googleCloudBuild: #esta conf es para que funcione en el contexto del cluster de GCP
+    projectId: ticketing-microservices-369119
   artifacts:
-    - image: yasniel1408/auth
+    - image: us.gcr.io/ticketing-microservices-369119/auth # este es el nombre necesario para que encuentre la imagen correcta
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -12,7 +14,7 @@ build:
         manual:
           - dest: .
             src: "src/**/*.ts"
-    - image: yasniel1408/payment
+    - image: us.gcr.io/ticketing-microservices-369119/payment # este es el nombre necesario para que encuentre la imagen correcta
       context: payment
       docker:
         dockerfile: Dockerfile

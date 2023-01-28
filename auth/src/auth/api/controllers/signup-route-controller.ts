@@ -6,8 +6,9 @@ import VerifyIfExistEmail from "../validators/verify-if-exist-email";
 import jwt from "jsonwebtoken";
 import {UserSignupRequestDto} from "../models/user-signup-request-dto";
 import {UserSignupResponseDto} from "../models/user-signup-response-dto";
+import VerifyErrorMiddleware from "../../../common/middlewares/verify-error-middleware";
 
-export class SignupRouteController extends RouteControllerBase {
+export class SignUpRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
     super(app, "SignupRoute", "/api/users/signup");
   }
@@ -16,14 +17,21 @@ export class SignupRouteController extends RouteControllerBase {
     this.app.post(
       this.path,
       [
-        body("email").isEmail().withMessage("Email must be valid"),
+        body("email")
+          .isEmail()
+          .withMessage("Email must be valid")
+          .notEmpty()
+          .withMessage("You must supply a email"),
         body("password")
           .isString()
           .trim()
           .isLength({ min: 4, max: 20 })
-          .withMessage("Password must be between 4 and 20 character"),
+          .withMessage("Password must be between 4 and 20 character")
+          .notEmpty()
+          .withMessage("You must supply a password"),
         VerifyIfExistEmail.verifyEmail,
       ],
+      VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
         const { email, password }: UserSignupRequestDto = req.body;
 
@@ -35,7 +43,7 @@ export class SignupRouteController extends RouteControllerBase {
         // create jwt
         const userJwt = jwt.sign(
           {
-            id: userCreated._id,
+            id: userCreated.id,
             email: userCreated.email,
           },
           process.env.JWT_KEY!
