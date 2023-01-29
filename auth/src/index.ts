@@ -1,44 +1,30 @@
-import express from "express";
-import "express-async-errors"; // esto resuelve el problea de lanzar errores en funciones con async
-import { json } from "body-parser";
-
-import MongoDBConnection from "./common/db/mongo-db-connection";
-import RouteControllerBase from "./common/route-controller-base";
-import { ErrorHandlerMiddleware } from "./common/middlewares";
-import cookieSession from "cookie-session";
 import {
+  CurrentUserRouteController,
   SignInRouteController,
   SignOutRouteController,
   SignUpRouteController,
-  CurrentUserRouteController,
 } from "auth/api";
-import { NotFoundError } from "./common/errors";
+import mongoDbConnection from "common/db/mongo-db-connection";
+import { NotFoundError } from "common/errors";
+import { ErrorHandlerMiddleware } from "common/middlewares";
+import RouteControllerBase from "common/route-controller-base";
+import { server } from "server";
 
-const app = express();
-app.set("trust proxy", true); // esto es para que podamos ingresar y confiar en el proxy
-app.use(json());
-app.use(
-  cookieSession({
-    signed: false, // esto es para desactivar el encriptado de las cookies
-    secure: false, // seguridad - solo se puede ingresar por https, en local lo ponemos en false de momento
-  })
-);
-
-export class MainApp {
+export class App {
   routes: Array<RouteControllerBase> = [];
 
   constructor() {
     // Routes
-    this.routes.push(new SignUpRouteController(app));
-    this.routes.push(new SignInRouteController(app));
-    this.routes.push(new CurrentUserRouteController(app));
-    this.routes.push(new SignOutRouteController(app));
-    app.all("*", async () => {
+    this.routes.push(new SignUpRouteController(server));
+    this.routes.push(new SignInRouteController(server));
+    this.routes.push(new CurrentUserRouteController(server));
+    this.routes.push(new SignOutRouteController(server));
+    server.all("*", async () => {
       throw new NotFoundError();
     });
 
     // Middlewares
-    app.use(ErrorHandlerMiddleware.handler);
+    server.use(ErrorHandlerMiddleware.handler);
   }
 
   start = async () => {
@@ -48,12 +34,12 @@ export class MainApp {
         `Routes configured for ${route.name}, with path: ${route.path}`
       );
     });
-    app.listen(3000, () => {
+    server.listen(3000, () => {
       console.log("AUTH SERVICE => Listening on port 3000");
     });
-    await MongoDBConnection.sync();
+    await mongoDbConnection.sync();
   };
 }
 
-const mainApp = new MainApp();
+const mainApp = new App();
 mainApp.start();

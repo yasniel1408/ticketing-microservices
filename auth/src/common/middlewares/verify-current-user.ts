@@ -20,10 +20,10 @@ class VerifyCurrentUser {
     try {
       const payload: UserResponseDto = VerifyJwt.verify(req.session.jwt);
       req.currentUser = payload as UserResponseDto;
-      return res.status(200).send({ user: null });
     } catch (error) {
-      return next();
+      next();
     }
+    next();
   }
 }
 
