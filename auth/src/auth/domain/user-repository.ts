@@ -1,6 +1,6 @@
-import { CRUDRepository } from "../../../common/interfaces/crud-repository";
-import { UserDao } from "../models/user-dao";
-import { UserDto } from "../models/user-dto";
+import { CRUDRepository } from "../../common/interfaces/crud-repository";
+import { UserDao } from "./models/user-dao";
+import { UserDto } from "./models/user-dto";
 
 class UserRepository implements CRUDRepository<UserDto> {
   async findAll(limit = 10, page = 0): Promise<any[]> {
