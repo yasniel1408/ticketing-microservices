@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import VerifyErrorMiddleware from "../../../common/middlewares/verify-error-middleware";
-import RouteControllerBase from "../../../common/route-controller-base";
-import { UserSignupRequestDto } from "../models/user-signup-request-dto";
+import VerifyErrorMiddleware from "../../common/middlewares/verify-error-middleware";
+import RouteControllerBase from "../../common/route-controller-base";
+import SigninService from "../usecases/signin-service";
+import createJwt from "../../common/helpers/create-jwt";
 
 export class SignInRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -25,9 +26,17 @@ export class SignInRouteController extends RouteControllerBase {
       ],
       VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
-        const { email, password }: UserSignupRequestDto = req.body;
+        const existingUser = await SigninService.signin(req.body);
 
-        res.status(200).send({ user: { email, password } });
+        // create jwt
+        const userJwt = createJwt.create(existingUser);
+
+        // guardar el jwt en las cookies
+        req.session = {
+          jwt: userJwt,
+        };
+
+        res.status(200).send({ user: existingUser });
       }
     );
     return this.app;

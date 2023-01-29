@@ -1,12 +1,11 @@
-import express, {Request, Response} from "express";
-import {body} from "express-validator";
-import RouteControllerBase from "../../../common/route-controller-base";
-import SignupService from "../../services/signup-service";
-import VerifyIfExistEmail from "../validators/verify-if-exist-email";
-import jwt from "jsonwebtoken";
-import {UserSignupRequestDto} from "../models/user-signup-request-dto";
-import {UserSignupResponseDto} from "../models/user-signup-response-dto";
-import VerifyErrorMiddleware from "../../../common/middlewares/verify-error-middleware";
+import express, { Request, Response } from "express";
+import { body } from "express-validator";
+import RouteControllerBase from "../../common/route-controller-base";
+import SignupService from "../usecases/signup-service";
+import VerifyIfExistEmail from "./validators/verify-if-exist-email";
+import { UserAuthenticationRequestDto } from "./models/user-authentication-request-dto";
+import VerifyErrorMiddleware from "../../common/middlewares/verify-error-middleware";
+import CreateJwt from "../../common/helpers/create-jwt";
 
 export class SignUpRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -33,21 +32,15 @@ export class SignUpRouteController extends RouteControllerBase {
       ],
       VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
-        const { email, password }: UserSignupRequestDto = req.body;
+        const { email, password }: UserAuthenticationRequestDto = req.body;
 
-        const userCreated: UserSignupResponseDto = await SignupService.signup({
+        const userCreated = await SignupService.signup({
           email,
           password,
         });
 
         // create jwt
-        const userJwt = jwt.sign(
-          {
-            id: userCreated.id,
-            email: userCreated.email,
-          },
-          process.env.JWT_KEY!
-        );
+        const userJwt = CreateJwt.create(userCreated);
 
         // guardar el jwt en las cookies
         req.session = {
