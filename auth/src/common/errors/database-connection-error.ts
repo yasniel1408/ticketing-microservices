@@ -1,7 +1,7 @@
-import { IResponseErrorInterface } from "./interfaces/response-error-interface";
 import { CustomBaseError } from "./custom-base-error";
+import { IResponseErrorInterface } from "./interfaces/response-error-interface";
 
-export class DatabaseConnectionError extends CustomBaseError {
+export default class DatabaseConnectionError extends CustomBaseError {
   statusCode: number = 500;
   reason: string = "Error connecting to database!";
 

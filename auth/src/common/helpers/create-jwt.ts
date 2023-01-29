@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { UserAuthenticationRequestDto } from "../../auth/api/models/user-authentication-request-dto";
+import { UserAuthenticationRequestDto } from "auth/api/models/user-authentication-request-dto";
 
 class CreateJwt {
   create(user: UserAuthenticationRequestDto & { id: string }) {

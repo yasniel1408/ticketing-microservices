@@ -1,9 +1,9 @@
-import { BadRequestError } from "../../common/errors/bad-request-error";
-import UserRepository from "../domain/repository/user-repository";
-import { HashPasswordService } from "./hash-password-service";
-import { UserAuthenticationRequestDto } from '../api/models/user-authentication-request-dto';
+import UserRepository from "auth/domain/repository/user-repository";
+import { HashPasswordService } from ".";
+import { UserAuthenticationRequestDto } from "auth/api/models/user-authentication-request-dto";
+import { BadRequestError } from "common/errors";
 
-class SigninService {
+class SignInService {
   async signin(user: UserAuthenticationRequestDto): Promise<any> {
     const { email, password }: UserAuthenticationRequestDto = user;
 
@@ -26,4 +26,4 @@ class SigninService {
   }
 }
 
-export default new SigninService();
+export default new SignInService();

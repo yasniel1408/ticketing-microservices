@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import VerifyErrorMiddleware from "../../common/middlewares/verify-error-middleware";
-import RouteControllerBase from "../../common/route-controller-base";
-import SigninService from "../usecases/signin-service";
-import createJwt from "../../common/helpers/create-jwt";
+import VerifyErrorMiddleware from "common/middlewares/verify-error-middleware";
+import RouteControllerBase from "common/route-controller-base";
+import { SignInService } from "auth/usecases";
+import { CreateJwt } from "common/helpers";
 
-export class SignInRouteController extends RouteControllerBase {
+export default class SignInRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
     super(app, "SignInRoute", "/api/users/signin");
   }
@@ -26,10 +26,10 @@ export class SignInRouteController extends RouteControllerBase {
       ],
       VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
-        const existingUser = await SigninService.signin(req.body);
+        const existingUser = await SignInService.signin(req.body);
 
         // create jwt
-        const userJwt = createJwt.create(existingUser);
+        const userJwt = CreateJwt.create(existingUser);
 
         // guardar el jwt en las cookies
         req.session = {

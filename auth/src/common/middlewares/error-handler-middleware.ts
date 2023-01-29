@@ -1,14 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { IResponseErrorInterface } from "../errors/interfaces/response-error-interface";
-import { CustomBaseError } from "../errors/custom-base-error";
+import { IResponseErrorInterface } from "common/errors/interfaces/response-error-interface";
+import { CustomBaseError } from "common/errors/custom-base-error";
 
 class ErrorHandlerMiddleware {
-  handler = (
-    err: Error,
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
+  handler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof CustomBaseError) {
       return res.status(err.statusCode).send(err.serializeError());
     }

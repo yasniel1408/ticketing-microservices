@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
-import RouteControllerBase from "../../common/route-controller-base";
+import RouteControllerBase from "common/route-controller-base";
 
-export class SignoutRouteController extends RouteControllerBase {
+export default class SignOutRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
     super(app, "SignoutRoute", "/api/users/signout");
   }

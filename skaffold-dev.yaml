@@ -7,7 +7,7 @@ build:
     - image: yasniel1408/auth
       context: auth
       docker:
-        dockerfile: Dockerfile
+        dockerfile: development.Dockerfile
       sync:
         manual:
           - dest: .
@@ -15,7 +15,7 @@ build:
     - image: yasniel1408/payment
       context: payment
       docker:
-        dockerfile: Dockerfile
+        dockerfile: development.Dockerfile
       sync:
         manual:
           - dest: .

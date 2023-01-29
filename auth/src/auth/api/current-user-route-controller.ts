@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
-import RouteControllerBase from "../../common/route-controller-base";
-import VerifyJwt from "../../common/helpers/verify-jwt";
+import RouteControllerBase from "common/route-controller-base";
+import VerifyJwt from "common/helpers/verify-jwt";
 
-export class CurrentUserRouteController extends RouteControllerBase {
+export default class CurrentUserRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
     super(app, "CurrentUserRoute", "/api/users/currentuser");
   }

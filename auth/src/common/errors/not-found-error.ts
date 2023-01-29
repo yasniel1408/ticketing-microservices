@@ -1,7 +1,7 @@
 import { CustomBaseError } from "./custom-base-error";
 import { IResponseErrorInterface } from "./interfaces/response-error-interface";
 
-export class NotFoundError extends CustomBaseError {
+export default class NotFoundError extends CustomBaseError {
   statusCode = 404;
   reason: string = "Not Found Resource!";
 

@@ -1,6 +1,6 @@
+import { RequestValidationError } from "common/errors";
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { RequestValidationError } from "../errors/request-validation-error";
 
 class VerifyErrorMiddleware {
   verify = (req: Request, res: Response, next: NextFunction) => {

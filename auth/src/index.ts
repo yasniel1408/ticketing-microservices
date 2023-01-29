@@ -2,15 +2,17 @@ import express from "express";
 import "express-async-errors"; // esto resuelve el problea de lanzar errores en funciones con async
 import { json } from "body-parser";
 
-import { NotFoundError } from "./common/errors/not-found-error";
 import MongoDBConnection from "./common/db/mongo-db-connection";
 import RouteControllerBase from "./common/route-controller-base";
-import ErrorHandlerMiddleware from "./common/middlewares/error-handler-middleware";
-import { SignUpRouteController } from "./auth/api/signup-route-controller";
+import { ErrorHandlerMiddleware } from "./common/middlewares";
 import cookieSession from "cookie-session";
-import { SignInRouteController } from "./auth/api/signin-route-controller";
-import { CurrentUserRouteController } from "./auth/api/current-user-route-controller";
-import { SignoutRouteController } from './auth/api/signout-route-controller';
+import {
+  SignInRouteController,
+  SignOutRouteController,
+  SignUpRouteController,
+  CurrentUserRouteController,
+} from "auth/api";
+import { NotFoundError } from "./common/errors";
 
 const app = express();
 app.set("trust proxy", true); // esto es para que podamos ingresar y confiar en el proxy
@@ -30,7 +32,7 @@ export class MainApp {
     this.routes.push(new SignUpRouteController(app));
     this.routes.push(new SignInRouteController(app));
     this.routes.push(new CurrentUserRouteController(app));
-    this.routes.push(new SignoutRouteController(app));  
+    this.routes.push(new SignOutRouteController(app));
     app.all("*", async () => {
       throw new NotFoundError();
     });
