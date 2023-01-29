@@ -1,5 +1,5 @@
-import { UserAuthenticationRequestDto } from "../api/models/user-authentication-request-dto";
-import UserRepository from "../domain/user-repository";
+import { UserAuthenticationRequestDto } from "auth/api/models";
+import { UserRepository } from "auth/domain";
 
 class SignupService {
   async signup(user: UserAuthenticationRequestDto): Promise<any> {

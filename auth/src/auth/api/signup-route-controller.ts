@@ -2,10 +2,10 @@ import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import RouteControllerBase from "common/route-controller-base";
 import VerifyIfExistEmail from "./validators/verify-if-exist-email";
-import { UserAuthenticationRequestDto } from "./models/user-authentication-request-dto";
 import { CreateJwt } from "common/helpers";
 import { SignUpService } from "auth/usecases";
 import { VerifyErrorMiddleware } from "common/middlewares";
+import { UserAuthenticationRequestDto } from "./models";
 
 export default class SignUpRouteController extends RouteControllerBase {
   constructor(app: express.Application) {

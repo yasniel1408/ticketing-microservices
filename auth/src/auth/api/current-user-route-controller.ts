@@ -1,6 +1,9 @@
 import express, { Request, Response } from "express";
 import RouteControllerBase from "common/route-controller-base";
-import VerifyJwt from "common/helpers/verify-jwt";
+import { VerifyJwt } from "common/helpers";
+import { VerifyCurrentUser } from "common/middlewares";
+import { JwtPayload } from "jsonwebtoken";
+import { UserResponseDto } from "./models";
 
 export default class CurrentUserRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -8,19 +11,23 @@ export default class CurrentUserRouteController extends RouteControllerBase {
   }
 
   configureRoutes(): express.Application {
-    this.app.get(this.path, [], async (req: Request, res: Response) => {
-      if (!req.session?.jwt) {
-        return res.status(200).send({ user: null });
-      }
+    this.app.get(
+      this.path,
+      [VerifyCurrentUser.verify],
+      async (req: Request, res: Response) => {
+        if (!req.session?.jwt) {
+          return res.status(200).send({ user: null });
+        }
 
-      try {
-        const payload = VerifyJwt.verify(req.session.jwt);
+        try {
+          const payload: UserResponseDto = VerifyJwt.verify(req.session.jwt);
 
-        res.status(200).json({ user: payload });
-      } catch (error) {
-        return res.status(200).send({ user: null });
+          res.status(200).json({ user: payload });
+        } catch (error) {
+          return res.status(200).send({ user: null });
+        }
       }
-    });
+    );
 
     return this.app;
   }
