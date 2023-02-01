@@ -1,7 +1,7 @@
-import UserRepository from "auth/domain/user-repository";
+import UserRepository from "@app/auth/domain/user-repository";
 import { HashPasswordService } from ".";
-import { BadRequestError } from "common/errors";
-import { UserAuthenticationRequestDto } from "auth/api/models";
+import { BadRequestError } from "@app/common/errors";
+import { UserAuthenticationRequestDto } from "@app/auth/api/models";
 
 class SignInService {
   async signin(user: UserAuthenticationRequestDto): Promise<any> {

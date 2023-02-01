@@ -4,7 +4,7 @@ COPY ["./package.json", "./package-lock.json", "/usr/src/"]
 
 WORKDIR /usr/src
 
-RUN npm install
+RUN npm install --only=prod
 
 COPY ["./", "/usr/src/"]
 

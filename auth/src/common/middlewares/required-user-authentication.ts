@@ -1,4 +1,4 @@
-import { NotAuthorizedError } from "common/errors";
+import { NotAuthorizedError } from "@app/common/errors";
 import { NextFunction, Request, Response } from "express";
 
 class RequiredUserAuthentication {

@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-import RouteControllerBase from "common/route-controller-base";
 import {
   RequiredUserAuthentication,
   VerifyCurrentUser,
-} from "common/middlewares";
+} from "@app/common/middlewares";
+import RouteControllerBase from "@app/common/route-controller-base";
 
 export default class CurrentUserRouteController extends RouteControllerBase {
   constructor(app: express.Application) {

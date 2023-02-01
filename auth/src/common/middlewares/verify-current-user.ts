@@ -1,5 +1,5 @@
-import { UserResponseDto } from "auth/api/models";
-import { VerifyJwt } from "common/helpers";
+import { UserResponseDto } from "@app/auth/api/models";
+import { VerifyJwt } from "@app/common/helpers";
 import { Request, Response, NextFunction } from "express";
 
 // Esto lo usamos para decirle que busque esta interfaz y le agrege la propiedad de currentUser

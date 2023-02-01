@@ -1,4 +1,4 @@
-import { UserAuthenticationRequestDto } from "auth/api/models";
+import { UserAuthenticationRequestDto } from "@app/auth/api/models";
 import jwt from "jsonwebtoken";
 
 class CreateJwt {

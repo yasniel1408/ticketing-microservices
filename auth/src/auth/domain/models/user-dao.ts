@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { HashPasswordService } from "auth/usecases";
+import { HashPasswordService } from "@app/auth/usecases";
 import { UserDto } from "./user-dto";
 
 const userSchema = new Schema<UserDto>(

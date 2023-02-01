@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { UserDao } from "auth/domain/models/user-dao";
-import { BadRequestError } from "common/errors";
+import { UserDao } from "@app/auth/domain/models/user-dao";
+import { BadRequestError } from "@app/common/errors";
 
 class VerifyIfExistEmail {
   verifyEmail = async (req: Request, res: Response, next: NextFunction) => {

@@ -1,4 +1,4 @@
-import { UserResponseDto } from "auth/api/models";
+import { UserResponseDto } from "@app/auth/api/models";
 import jwt from "jsonwebtoken";
 
 class VerifyJwt {
