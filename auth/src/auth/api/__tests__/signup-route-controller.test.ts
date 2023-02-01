@@ -35,7 +35,6 @@ it("should return 400 whit missing email and password", async () => {
   return request(app).post("/api/users/signup").send({}).expect(400);
 });
 
-
 it("should return 400 when email exist", async () => {
   await request(app)
     .post("/api/users/signup")
@@ -43,6 +42,7 @@ it("should return 400 when email exist", async () => {
       email: "test@gmail.com",
       password: "test",
     })
+    .expect(201);
   return request(app)
     .post("/api/users/signup")
     .send({
@@ -65,4 +65,16 @@ it("should return 400 when email or password is black", async () => {
       password: "test",
     })
     .expect(400);
+});
+
+it("should sets cookies after successful signup", async () => {
+  const response = await request(app)
+    .post("/api/users/signup")
+    .send({
+      email: "test@gmail.com",
+      password: "test",
+    })
+    .expect(201);
+
+  expect(response.get("Set-Cookie")).toBeDefined();
 });

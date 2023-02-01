@@ -12,8 +12,9 @@ import {
 } from "@app/auth/api";
 import { NotFoundError } from "@app/common/errors";
 import { ErrorHandlerMiddleware } from "@app/common/middlewares";
+import EnvironmentsVerification from "@app/common/utils/environments-verification";
 
-const whitelist = ["*", "[::1]:8080", "127.0.0.1:80"];
+const whitelist = ["*"]; // arreglo con todos los fronts que va aceptar
 const corsOptions = {
   origin: (origin: any, callback: any) => {
     if (whitelist.includes(origin) || whitelist.includes("*")) {
@@ -35,7 +36,9 @@ app.use(helmet());
 app.use(
   cookieSession({
     signed: false, // esto es para desactivar el encriptado de las cookies
-    secure: false, // seguridad - solo se puede ingresar por https, en local lo ponemos en false de momento
+    secure:
+      !EnvironmentsVerification.isTest &&
+      !EnvironmentsVerification.isDevelopment, // seguridad - solo se puede ingresar por https, en local lo ponemos en false de momento
   })
 );
 
