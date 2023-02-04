@@ -20,14 +20,30 @@ build:
         manual:
           - dest: .
             src: "src/**/*.ts"
+    - image: yasniel1408/client
+      context: client
+      docker:
+        dockerfile: development.Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
+          - dest: .
+            src: "src/**/*.tsx"
+          - dest: .
+            src: "src/**/*.js"
+          - dest: .
+            src: "src/**/*.css"
 manifests:
   rawYaml:
     - infra/k8s/auth/auth-deployment.yaml
     - infra/k8s/auth/auth-mongodb-deployment.yaml
     - infra/k8s/payment/payment-deployment.yaml
+    - infra/k8s/client/client-deployment.yaml
 
     - infra/k8s/ingress-load-balancer.yaml
 
     - infra/k8s/auth/auth-services-ip-cluster.yaml
     - infra/k8s/auth/auth-mongodb-services-ip-cluster.yaml
     - infra/k8s/payment/payment-services-ip-cluster.yaml
+    - infra/k8s/client/client-services-ip-cluster.yaml

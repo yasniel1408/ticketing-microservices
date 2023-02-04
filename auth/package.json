@@ -8,6 +8,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
     "start": "node ./dist/index.js",
     "test": "jest --watchAll --no-cache --coverage",
+    "test:coverage": "jest --no-cache --coverage --coverageReporters",
+    "test-ci": "jest --no-cache",
     "debug": "DEBUG=express:* ts-node-dev src/index.ts"
   },
   "keywords": [],

@@ -1,0 +1,18 @@
+.nav {
+  width: 100%;
+  border: 1px solid white;
+}
+
+.ul {
+  display: flex;
+  flex-direction: row;
+}
+
+.li {
+  padding: 15px;
+  list-style: none;
+}
+
+.li:hover {
+  text-decoration: underline;
+}
