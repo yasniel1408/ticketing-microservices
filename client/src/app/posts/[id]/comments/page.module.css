@@ -1,0 +1,10 @@
+.ul {
+  border: 1px rgb(79, 79, 79) solid;
+  padding: 1rem 0.7rem 1rem 2rem;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.ul li {
+  padding-bottom: 10px;
+}

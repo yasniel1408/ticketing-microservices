@@ -5,6 +5,8 @@ export abstract class CustomBaseError extends Error {
 
   constructor(message?: string) {
     super(message);
+
+    Object.setPrototypeOf(this, CustomBaseError.prototype);
   }
 
   abstract serializeError(): IResponseErrorInterface;

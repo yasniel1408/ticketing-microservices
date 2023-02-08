@@ -1,4 +1,4 @@
-export default function Head() {
+export default function RootHead() {
   return (
     <>
       <title>Ticketing</title>

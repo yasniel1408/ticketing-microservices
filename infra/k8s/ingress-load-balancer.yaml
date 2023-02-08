@@ -12,14 +12,14 @@ spec:
     - host: ticketing.com
       http:
         paths:
-          - path: /api/users
+          - path: /api/users/?(.*)
             pathType: Prefix
             backend:
               service:
                 name: auth-service
                 port:
                   number: 3000
-          - path: /api/payment
+          - path: /api/payment/?(.*)
             pathType: Prefix
             backend:
               service:

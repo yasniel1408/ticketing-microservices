@@ -5,7 +5,7 @@ export default function Header() {
   const links = [
     { name: "Home", link: "/" },
     { name: "Dashboard", link: "/dashboard" },
-    { name: "About", link: "/about" },
+    { name: "Posts", link: "/posts" },
   ];
 
   return (

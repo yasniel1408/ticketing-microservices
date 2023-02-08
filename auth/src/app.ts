@@ -2,6 +2,7 @@ import express from "express";
 import "express-async-errors"; // esto resuelve el problea de lanzar errores en funciones con async
 import cookieSession from "cookie-session";
 import cors from "cors";
+import { json } from "body-parser";
 import helmet from "helmet";
 import RouteControllerBase from "@app/common/route-controller-base";
 import {
@@ -29,8 +30,7 @@ const app = express();
 app.set("trust proxy", true); // esto es para que podamos ingresar y confiar en el proxy
 
 // Middlewares
-app.use(ErrorHandlerMiddleware.handler);
-app.use(express.json());
+app.use(json());
 app.use(cors(corsOptions));
 app.use(helmet());
 app.use(
@@ -52,5 +52,6 @@ routes.push(new SignOutRouteController(app));
 app.all("*", async () => {
   throw new NotFoundError();
 });
+app.use(ErrorHandlerMiddleware.handler);
 
 export { app, routes };
