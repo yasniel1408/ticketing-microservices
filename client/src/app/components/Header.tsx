@@ -9,8 +9,7 @@ export default function Header() {
   ];
 
   return (
-    <header>
-      <nav className={styles.nav}>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <ul className={styles.ul}>
           {links.map(({ name, link }: { name: string; link: string }) => {
             return (
@@ -21,6 +20,5 @@ export default function Header() {
           })}
         </ul>
       </nav>
-    </header>
   );
 }

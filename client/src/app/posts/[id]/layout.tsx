@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import styles from "./page.module.css";
 
-const fetchPost = ({ id }: { id: number }) => {
+const fetchPost = async ({ id }: { id: number }) => {
   // Incremental staic regeneration
   return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
     next: {
@@ -27,7 +27,7 @@ const PostLayout = async ({
       <h2>Post ID: {id}</h2>
       <h1>Title: {post.title}</h1>
       <p>Body: {post.body}</p>
-      <Link href={`/posts/${id}/comments`}>Ver Commentarios</Link>
+      <Link className="btn btn-secondary" href={`/posts/${id}/comments`}>Ver Commentarios</Link>
       {children}
     </article>
   );

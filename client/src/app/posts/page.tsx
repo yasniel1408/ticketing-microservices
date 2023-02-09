@@ -29,7 +29,7 @@ const Posts = async () => {
     <div>
       {posts.map((post: any) => {
         return (
-          <div className={styles.post} key={post.id}>
+          <div className={`${styles.post} card`} key={post.id}>
             <Link href="/posts/[id]" as={`/posts/${post.id}`}>
               <h1>{post.title}</h1>
               <p>{post.body}</p>
