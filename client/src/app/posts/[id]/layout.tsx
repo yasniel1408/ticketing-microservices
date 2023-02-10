@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { ReactNode } from "react";
-import styles from "./page.module.css";
+import Link from 'next/link';
+import { ReactNode } from 'react';
+import styles from './page.module.css';
 
 const fetchPost = async ({ id }: { id: number }) => {
   // Incremental staic regeneration
@@ -11,13 +11,7 @@ const fetchPost = async ({ id }: { id: number }) => {
   }).then((res) => res.json());
 };
 
-const PostLayout = async ({
-  children,
-  params,
-}: {
-  children: ReactNode;
-  params: any;
-}) => {
+const PostLayout = async ({ children, params }: { children: ReactNode; params: any }) => {
   const { id } = params;
 
   const post = await fetchPost({ id });
@@ -27,7 +21,9 @@ const PostLayout = async ({
       <h2>Post ID: {id}</h2>
       <h1>Title: {post.title}</h1>
       <p>Body: {post.body}</p>
-      <Link className="btn btn-secondary" href={`/posts/${id}/comments`}>Ver Commentarios</Link>
+      <Link className="btn btn-secondary" href={`/posts/${id}/comments`}>
+        Ver Commentarios
+      </Link>
       {children}
     </article>
   );

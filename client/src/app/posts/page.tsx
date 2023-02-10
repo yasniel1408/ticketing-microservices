@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { LikeButton } from "./components/LikeButton";
-import styles from "./page.module.css";
+import Link from 'next/link';
+import { LikeButton } from './components/LikeButton';
+import styles from './page.module.css';
 
 // Este es un componente que se carga desde el servidor por  lo que los hook no funcionan aca
 const fetchPosts = () => {
@@ -11,11 +11,12 @@ const fetchPosts = () => {
 
   // getServerSideProps
   //   return fetch("https://jsonplaceholder.typicode.com/posts", {
-  //     cache: "no-store", // Esto es para que sea dinamica, sino los datos serian estaticos y se cargarian solo la ves que hacemos build
+  //     cache: "no-store", // Esto es para que sea dinamica, sino los datos serian estaticos
+  //                           y se cargarian solo la ves que hacemos build
   //   }).then((res) => res.json());
 
   // Incremental staic regeneration
-  return fetch("https://jsonplaceholder.typicode.com/posts", {
+  return fetch('https://jsonplaceholder.typicode.com/posts', {
     next: {
       revalidate: 60,
     },

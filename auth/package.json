@@ -10,7 +10,7 @@
     "test": "jest --watchAll --no-cache --coverage",
     "test:coverage": "jest --no-cache --coverage --coverageReporters",
     "test-ci": "jest --no-cache",
-    "debug": "DEBUG=express:* ts-node-dev src/index.ts"
+    "debug": "DEBUG=express:* ts-node-dev -r tsconfig-paths/register src/index.ts"
   },
   "keywords": [],
   "author": "",

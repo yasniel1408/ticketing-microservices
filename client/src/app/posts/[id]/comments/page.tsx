@@ -1,7 +1,7 @@
-import styles from "./page.module.css";
+import styles from './page.module.css';
 
 const fetchComments = async ({ id }: { id: number }) => {
-  await new Promise((resolve) => setTimeout(resolve, 4000));
+  // await new Promise((resolve) => setTimeout(resolve, 4000));
 
   // Incremental staic regeneration
   return fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`, {
