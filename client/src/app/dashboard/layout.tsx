@@ -13,7 +13,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
             <Link href="/">Home</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
-            Auth
+            Dashboard
           </li>
         </ol>
       </nav>

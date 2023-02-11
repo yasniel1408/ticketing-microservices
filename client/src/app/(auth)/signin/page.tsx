@@ -3,23 +3,22 @@
 import { useState, useCallback, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import useRequest from '@/hooks/useRequest';
-import { AuthContext } from '@/context/authContext';
+import { AuthContext } from '@/context/AuthenticationProvider';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-  const { setUser } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const { doRequest, errors } = useRequest({
     url: '/api/users/signin',
     method: 'post',
     onSuccess: useCallback(
       (data: any) => {
-        console.log('USERSSSSS:', data.user);
-        setUser(data.user);
+        login(data.user);
         router.push('/');
       },
-      [router, setUser],
+      [router, login],
     ),
   });
 
@@ -33,7 +32,7 @@ const Signin = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="bg-light card p-5 m-lg-5 m-md-5">
       <h1>Sign In</h1>
       <div className="form-group">
         <label>Email Address</label>
@@ -49,7 +48,7 @@ const Signin = () => {
         />
       </div>
       {errors && JSON.stringify(errors)}
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary mt-lg-4 mt-md-5 mt-sm-3">
         Sign In
       </button>
     </form>

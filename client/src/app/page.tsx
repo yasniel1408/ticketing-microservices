@@ -6,7 +6,7 @@ import styles from './page.module.css';
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.center}>HOLA JUAN !!!!! 1</div>
+      <div className={styles.center}> ESTE ES EL HOME</div>
     </main>
   );
 }

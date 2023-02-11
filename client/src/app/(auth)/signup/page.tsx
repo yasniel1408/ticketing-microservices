@@ -26,7 +26,7 @@ const Signup = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="bg-light card p-5 m-lg-5 m-md-5">
       <h1>Sign Up</h1>
       <div className="form-group">
         <label>Email Address</label>
@@ -42,7 +42,7 @@ const Signup = () => {
         />
       </div>
       {errors && JSON.stringify(errors)}
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary mt-lg-4 mt-md-5 mt-sm-3">
         Sign Up
       </button>
     </form>

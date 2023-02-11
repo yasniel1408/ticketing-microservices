@@ -1,10 +1,22 @@
+import Link from 'next/link';
 import { ReactNode } from 'react';
-import styles from './page.module.css';
 
 const Layout = async ({ children }: { children: ReactNode }) => {
   return (
-    <div className={styles.layout}>
-      <small>Home / Posts</small>
+    <div
+      className="container 
+      pe-lg-5 ps-lg-5 pe-md-5 ps-md-5 me-lg-5 ms-lg-5 mt-3"
+    >
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link href="/">Home</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Posts
+          </li>
+        </ol>
+      </nav>
       {children}
     </div>
   );

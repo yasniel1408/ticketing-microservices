@@ -27,18 +27,20 @@ const Posts = async () => {
   const posts = await fetchPosts();
 
   return (
-    <div>
-      {posts.map((post: any) => {
-        return (
-          <div className={`${styles.post} card`} key={post.id}>
-            <Link href="/posts/[id]" as={`/posts/${post.id}`}>
-              <h1>{post.title}</h1>
-              <p>{post.body}</p>
-              <LikeButton />
-            </Link>
-          </div>
-        );
-      })}
+    <div className="container-lg">
+      <div className="row justify-content-center center w-100 gap-lg-4 gap-md-3 gap-sm-1">
+        {posts.map((post: any) => {
+          return (
+            <div className="card p-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 well" key={post.id}>
+              <Link href="/posts/[id]" as={`/posts/${post.id}`}>
+                <h1 className="card-header">{post.title}</h1>
+                <p className="card-body">{post.body}</p>
+                <LikeButton />
+              </Link>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
