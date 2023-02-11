@@ -16,7 +16,7 @@ const Signin = () => {
     onSuccess: useCallback(
       (data: any) => {
         login(data.user);
-        router.push('/');
+        router.push('/dashboard');
       },
       [router, login],
     ),

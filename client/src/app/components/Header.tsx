@@ -3,21 +3,34 @@
 import Link from 'next/link';
 // add bootstrap css
 import 'bootstrap/dist/css/bootstrap.css';
-import { useContext } from 'react';
+import { useContext, useLayoutEffect, useMemo } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { AuthContext } from '@/context/AuthenticationProvider';
-import styles from './Header.module.css';
 
 export default function Header() {
-  const { user } = useContext<any>(AuthContext);
+  const { user, isLogged } = useContext<any>(AuthContext);
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const links = [
-    { name: 'Home', link: '/' },
-    { name: 'Dashboard', link: '/dashboard' },
-    { name: 'Posts', link: '/posts' },
-    { name: 'Sign Up', link: '/signup' },
-    { name: 'Sign In', link: '/signin' },
-    { name: 'Sign Out', link: '/signout' },
-  ];
+  const links = useMemo(
+    () => [
+      { name: 'Home', link: '/', isProtected: false },
+      { name: 'Dashboard', link: '/dashboard', isProtected: true },
+      { name: 'Posts', link: '/posts', isProtected: false },
+      { name: 'Sign Up', link: '/signup', isProtected: false },
+      { name: 'Sign In', link: '/signin', isProtected: false },
+      { name: 'Sign Out', link: '/signout', isProtected: true },
+    ],
+    [],
+  );
+
+  useLayoutEffect(() => {
+    links.forEach(({ link, isProtected }) => {
+      if (!user && !isLogged && pathname === link && isProtected) {
+        router.push('/');
+      }
+    });
+  }, [isLogged, links, pathname, router, user]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -38,15 +51,26 @@ export default function Header() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {links.map(({ name, link }: { name: string; link: string }) => {
-              return (
-                <li key={name} className="nav-item">
-                  <Link href={link} className="nav-link active" aria-current="page">
-                    {name}
-                  </Link>
-                </li>
-              );
-            })}
+            {links.map(
+              ({
+                name,
+                link,
+                isProtected,
+              }: {
+                name: string;
+                link: string;
+                isProtected: boolean;
+              }) => {
+                if (isProtected && !isLogged) return null;
+                return (
+                  <li key={name} className="nav-item">
+                    <Link href={link} className="nav-link active" aria-current="page">
+                      {name}
+                    </Link>
+                  </li>
+                );
+              },
+            )}
           </ul>
           <div className="d-flex">
             {user && (
