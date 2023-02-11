@@ -1,3 +1,5 @@
+import LoadingSpinner from '@/app/components/LoadingSpinner/LoadingSpinner';
+
 export default function LoadingComments() {
-  return <p>Loading Comments...</p>;
+  return <LoadingSpinner />;
 }

@@ -1,19 +1,22 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import useRequest from '@/hooks/useRequest';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
+  const router = useRouter();
   const [password, setPassword] = useState('');
   const { doRequest, errors } = useRequest({
     url: '/api/users/signup',
     method: 'post',
-    onSuccess: useCallback((data: any) => {
-      console.log(data);
-      redirect('/');
-    }, []),
+    onSuccess: useCallback(
+      (data: any) => {
+        router.push('/signin');
+      },
+      [router],
+    ),
   });
 
   const onSubmit = async (event: any) => {

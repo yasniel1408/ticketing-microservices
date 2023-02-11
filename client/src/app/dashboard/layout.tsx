@@ -1,7 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
-const Layout = async ({ children }: { children: ReactNode }) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className="container 

@@ -1,18 +1,18 @@
 import './globals.css';
 import { ReactNode } from 'react';
-import Header from './components/Header';
 import { AuthenticationProvider } from '@/context/AuthenticationProvider';
+import Header from './components/Header/Header';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head />
-      <AuthenticationProvider>
-        <body>
+      <body>
+        <AuthenticationProvider>
           <Header />
           {children}
-        </body>
-      </AuthenticationProvider>
+        </AuthenticationProvider>
+      </body>
     </html>
   );
 }

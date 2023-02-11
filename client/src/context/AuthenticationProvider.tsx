@@ -12,6 +12,7 @@ import {
 import reactUseCookie from 'react-use-cookie';
 import { IUserAuthentication } from '@/models/UserAuthentication';
 import { IUserAuthenticationProvider } from '@/app/interfaces/UserAuthenticationProvider';
+import LoadingSpinner from '@/app/components/LoadingSpinner/LoadingSpinner';
 
 export const AuthContext: Context<IUserAuthenticationProvider> =
   createContext<IUserAuthenticationProvider>({
@@ -23,16 +24,19 @@ export const AuthContext: Context<IUserAuthenticationProvider> =
   });
 
 export function AuthenticationProvider({ children }: { children: ReactNode }) {
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ email: string; name: string } | null>(null);
   const [userCookie, setUserCookie] = reactUseCookie('user', '');
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     !user && userCookie && setUser(JSON.parse(userCookie));
+    setLoading(false);
   }, [user, userCookie]);
 
   useEffect(() => {
     user ? setIsLogged(true) : setIsLogged(false);
+    setLoading(false);
   }, [user]);
 
   const logout = useCallback(() => {
@@ -52,6 +56,8 @@ export function AuthenticationProvider({ children }: { children: ReactNode }) {
     () => ({ user, setUser, logout, login, isLogged }),
     [isLogged, login, logout, user],
   );
+
+  if (loading) return <LoadingSpinner />;
 
   return <AuthContext.Provider value={{ ...value }}>{children}</AuthContext.Provider>;
 }

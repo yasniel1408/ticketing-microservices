@@ -8,7 +8,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { AuthContext } from '@/context/AuthenticationProvider';
 
 export default function Header() {
-  const { user, isLogged } = useContext<any>(AuthContext);
+  const { user, isLogged } = useContext(AuthContext);
   const router = useRouter();
   const pathname = usePathname();
 

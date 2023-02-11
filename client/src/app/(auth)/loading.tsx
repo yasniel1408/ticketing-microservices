@@ -1,9 +1,5 @@
+import LoadingSpinner from '@/app/components/LoadingSpinner/LoadingSpinner';
+
 export default function LoadingAuth() {
-  return (
-    <div className="w-100 vh-100 d-flex justify-content-center align-content-center">
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
+  return <LoadingSpinner />;
 }
