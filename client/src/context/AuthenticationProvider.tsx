@@ -9,7 +9,6 @@ import {
   useMemo,
   useState,
 } from 'react';
-import reactUseCookie from 'react-use-cookie';
 import { IUserAuthentication } from '@/models/UserAuthentication';
 import { IUserAuthenticationProvider } from '@/app/interfaces/UserAuthenticationProvider';
 import LoadingSpinner from '@/app/components/LoadingSpinner/LoadingSpinner';
@@ -23,34 +22,33 @@ export const AuthContext: Context<IUserAuthenticationProvider> =
     isLogged: false,
   });
 
-export function AuthenticationProvider({ children }: { children: ReactNode }) {
+export function AuthenticationProvider({
+  children,
+  currentUser,
+}: {
+  children: ReactNode;
+  currentUser?: IUserAuthentication;
+}) {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ email: string; name: string } | null>(null);
-  const [userCookie, setUserCookie] = reactUseCookie('user', '');
   const [isLogged, setIsLogged] = useState(false);
 
+  const logout = useCallback(() => {
+    setUser(null);
+  }, []);
+
+  const login = useCallback((data: IUserAuthentication) => {
+    setUser(data);
+  }, []);
+
   useEffect(() => {
-    !user && userCookie && setUser(JSON.parse(userCookie));
-    setLoading(false);
-  }, [user, userCookie]);
+    currentUser && setUser(currentUser);
+  }, [currentUser]);
 
   useEffect(() => {
     user ? setIsLogged(true) : setIsLogged(false);
     setLoading(false);
   }, [user]);
-
-  const logout = useCallback(() => {
-    setUser(null);
-    setUserCookie('');
-  }, [setUserCookie]);
-
-  const login = useCallback(
-    (data: IUserAuthentication) => {
-      setUser(data);
-      setUserCookie(JSON.stringify(data));
-    },
-    [setUserCookie],
-  );
 
   const value = useMemo(
     () => ({ user, setUser, logout, login, isLogged }),
