@@ -1,4 +1,4 @@
-import UserResponseDto from "@app/models/user-response-dto";
+import UserResponseDto from "../models/user-response-dto";
 import { Request, Response, NextFunction } from "express";
 import { VerifyJwt } from "..";
 
