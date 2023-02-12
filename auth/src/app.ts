@@ -11,9 +11,11 @@ import {
   SignOutRouteController,
   SignUpRouteController,
 } from "@app/auth/api";
-import { NotFoundError } from "@app/common/errors";
-import { ErrorHandlerMiddleware } from "@app/common/middlewares";
 import EnvironmentsVerification from "@app/common/utils/environments-verification";
+import {
+  ErrorHandlerMiddleware,
+  NotFoundError,
+} from "@common-ticketing-microservices/common";
 
 const whitelist = ["*"]; // arreglo con todos los fronts que va aceptar
 const corsOptions = {

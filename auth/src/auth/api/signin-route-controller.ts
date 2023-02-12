@@ -1,9 +1,8 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import VerifyErrorMiddleware from "@app/common/middlewares/verify-error-middleware";
-import RouteControllerBase from "@app/common/route-controller-base";
 import { SignInService } from "@app/auth/usecases";
-import { CreateJwt } from "@app/common/helpers";
+import RouteControllerBase from "@app/common/route-controller-base";
+import { CreateJwt, VerifyErrorMiddleware } from "@common-ticketing-microservices/common";
 
 export default class SignInRouteController extends RouteControllerBase {
   constructor(app: express.Application) {

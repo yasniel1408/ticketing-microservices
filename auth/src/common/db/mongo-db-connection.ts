@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import DatabaseConnectionError from '../errors/database-connection-error';
+import { DatabaseConnectionError } from "@common-ticketing-microservices/common";
 
 class MongoDBConnection {
   async sync() {

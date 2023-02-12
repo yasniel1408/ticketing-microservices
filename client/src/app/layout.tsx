@@ -8,22 +8,20 @@ import { AuthenticationProvider } from '@/context/AuthenticationProvider';
 // Y para el caso de los microservicios necesitamos comunicarnos
 // en el ingress-nginx para que redireccione desde el servidor al
 // namespase de los microservicios (http://<Service>.<namespace>.svc.cluster.local)
-const fetchCurrentUser = async () => {
+const fetchCurrentUser = () => {
   const headersList = headers();
 
-  const res = await fetch(
+  return fetch(
     'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser',
     {
       cache: 'no-store',
       headers: headersList,
     },
-  );
-  return res.json();
+  ).then((res) => res.json());
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
-  const getData = fetchCurrentUser();
-  const data = await getData;
+  const data = await fetchCurrentUser();
 
   return (
     <html lang="en">

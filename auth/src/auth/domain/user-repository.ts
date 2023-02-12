@@ -1,4 +1,4 @@
-import { CRUDRepository } from "../../common/interfaces/crud-repository";
+import { CRUDRepository } from "@app/common/interfaces/crud-repository";
 import { UserDao } from "./models/user-dao";
 import { UserDto } from "./models/user-dto";
 

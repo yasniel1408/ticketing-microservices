@@ -1,20 +1,26 @@
 {
   "name": "@common-ticketing-microservices/common",
-  "version": "1.0.0",
+  "version": "1.0.12",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
     "clean": "del ./build/*",
-    "build": "npm run clean && tsc"
+    "build": "npm run clean && tsc",
+    "pub": "npm version patch && npm run build && npm publish"
   },
   "author": "Yasniel Fajardo Egues",
   "license": "ISC",
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.1",
     "del-cli": "^5.0.0",
     "typescript": "^4.9.5"
   },
   "files": [
     "./build/**/*"
-  ]
+  ],
+  "dependencies": {
+    "express-validator": "^6.14.3",
+    "jsonwebtoken": "^9.0.0"
+  }
 }

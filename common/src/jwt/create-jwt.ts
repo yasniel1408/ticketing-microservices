@@ -1,7 +1,7 @@
-import { UserAuthenticationRequestDto } from "@app/auth/api/models";
+import UserAuthenticationRequestDto from "../models/user-authentication-request-dto";
 import jwt from "jsonwebtoken";
 
-class CreateJwt {
+class CreateJwt<T> {
   create(user: UserAuthenticationRequestDto & { id: string }): string {
     const userJwt: string = jwt.sign(
       {

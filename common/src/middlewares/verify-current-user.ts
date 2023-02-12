@@ -1,6 +1,6 @@
-import { UserResponseDto } from "@app/auth/api/models";
-import { VerifyJwt } from "@app/common/helpers";
+import UserResponseDto from "@app/models/user-response-dto";
 import { Request, Response, NextFunction } from "express";
+import { VerifyJwt } from "..";
 
 // Esto lo usamos para decirle que busque esta interfaz y le agrege la propiedad de currentUser
 declare global {
@@ -12,13 +12,13 @@ declare global {
 }
 
 class VerifyCurrentUser {
-  verify(req: Request, res: Response, next: NextFunction) {
+  verify(req: any, res: Response, next: NextFunction) {
     if (!req.session?.jwt) {
       return next();
     }
 
     try {
-      const payload: UserResponseDto = VerifyJwt.verify(req.session.jwt);
+      const payload: any = VerifyJwt.verify(req.session.jwt);
       req.currentUser = payload as UserResponseDto;
     } catch (error) {
       next();

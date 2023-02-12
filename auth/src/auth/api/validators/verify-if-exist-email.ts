@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { UserDao } from "@app/auth/domain/models/user-dao";
-import { BadRequestError } from "@app/common/errors";
+import { BadRequestError } from "@common-ticketing-microservices/common";
 
 class VerifyIfExistEmail {
   verifyEmail = async (req: Request, res: Response, next: NextFunction) => {

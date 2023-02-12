@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { IResponseErrorInterface } from "@app/common/errors/interfaces/response-error-interface";
-import { CustomBaseError } from "@app/common/errors/custom-base-error";
+import { IResponseErrorInterface } from "../errors/interfaces/response-error-interface";
+import { CustomBaseError } from "../errors/custom-base-error";
 
 class ErrorHandlerMiddleware {
   handler = (err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -84,3 +84,11 @@ npm i typescript del-cli --save-dev
     node_modules
     build
 ```
+
+14- Para hacer la publicacion cada vez deberiamos correr los siguientes comandos:
+
+```
+npm version patch ->para subir el numero de la version
+npm run build ->para compilar nuestro codigo
+npm publish --access public ->publicar en publico
+```
