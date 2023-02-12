@@ -1,0 +1,86 @@
+## Pasos para crear una libreria
+
+1- Tener una cuenta y haber creado la oganizacion en npmjs.com
+
+2- Crear un proyecto vacio con:
+
+```
+    npm init
+```
+
+3- Debes editar el nombre del paquete:
+
+```
+    @<nombre_organizacion>/<nombre_paquete>
+```
+
+4- Debe logearse usando el comando:
+
+```
+npm login
+```
+
+Aqui te pedira use, password y luego un codigo que te va a enviar al correo
+
+5- Para publicar este paquete necesitamos correr este comando
+
+```
+npm publish --access public
+```
+
+6- Devemos correr typescript init para que cree el archivo de configuracion:
+
+```
+npx tsc --init
+```
+
+7- Luego debemos instalar ciertas cosas necesarias:
+
+```
+npm i typescript del-cli --save-dev
+```
+
+8- Debes configurar un script para hacer el build de la libreria:
+
+```
+ "scripts": {
+    "build": "tsc"
+  },
+```
+
+9- Debemos habilitar ciertas configuraciones de typescript
+
+```
+    {
+        "declaration": true,
+        "outDir": "./build",
+    }
+```
+
+10- Debemos configurar que archivos seran los que se van a publicar dentro del package.json
+
+```
+  "files": [
+    "./build/**/*"
+  ]
+```
+
+11- Debemos tambien cambiar la ruta del archivo main dentro del package.json
+
+```
+    "main": "./build/index.js",
+```
+
+12- Debajo del main debemos agregar otra opcion que es types, que no es mas para decir cuales seran lo tipos de nuestra libreria en caso de que se use typescript
+
+```
+    "types": "./build/index.d.ts",
+
+```
+
+13- No olvidar usar .gitignore para evitar que se suban cosas como el node_module o la carpeta build
+
+```
+    node_modules
+    build
+```

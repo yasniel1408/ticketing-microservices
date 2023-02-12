@@ -24,6 +24,8 @@ export default function Header() {
     [],
   );
 
+  console.log(pathname);
+
   useLayoutEffect(() => {
     links.forEach(({ link, isProtected }) => {
       if (!user && !isLogged && pathname === link && isProtected) {
@@ -62,9 +64,14 @@ export default function Header() {
                 isProtected: boolean;
               }) => {
                 if (isProtected && !isLogged) return null;
+                if (isLogged && (link === '/signup' || link === '/signin')) return null;
                 return (
                   <li key={name} className="nav-item">
-                    <Link href={link} className="nav-link active" aria-current="page">
+                    <Link
+                      href={link}
+                      className={`nav-link ${pathname === link && 'active'}`}
+                      aria-current="page"
+                    >
                       {name}
                     </Link>
                   </li>
