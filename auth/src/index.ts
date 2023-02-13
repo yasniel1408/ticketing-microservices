@@ -1,6 +1,6 @@
+import { RouteControllerBase } from "@common-ticketing-microservices/common";
 import { app, routes } from "./app";
 import mongoDbConnection from "@app/common/db/mongo-db-connection";
-import RouteControllerBase from "@app/common/route-controller-base";
 
 const start = async () => {
   if (!process.env.JWT_KEY) throw new Error("JWT_KEY undefined!!!");

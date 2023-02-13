@@ -11,3 +11,9 @@ export { default as ErrorHandlerMiddleware } from "./middlewares/error-handler-m
 export { default as VerifyErrorMiddleware } from "./middlewares/verify-error-middleware";
 export { default as VerifyCurrentUser } from "./middlewares/verify-current-user";
 export { default as RequiredUserAuthentication } from "./middlewares/required-user-authentication";
+
+export { default as RouteControllerBase } from "./route-controller-base";
+
+export { default as EnvironmentsVerification } from "./utils/environments-verification";
+
+export { default as CRUDRepository } from "./interfaces/crud-repository";

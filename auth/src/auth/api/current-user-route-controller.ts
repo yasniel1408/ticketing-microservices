@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express";
-import RouteControllerBase from "@app/common/route-controller-base";
-import { VerifyCurrentUser } from "@common-ticketing-microservices/common";
+import {
+  RouteControllerBase,
+  VerifyCurrentUser,
+} from "@common-ticketing-microservices/common";
 
 export default class CurrentUserRouteController extends RouteControllerBase {
   constructor(app: express.Application) {

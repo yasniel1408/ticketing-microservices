@@ -4,17 +4,17 @@ import cookieSession from "cookie-session";
 import cors from "cors";
 import { json } from "body-parser";
 import helmet from "helmet";
-import RouteControllerBase from "@app/common/route-controller-base";
 import {
   CurrentUserRouteController,
   SignInRouteController,
   SignOutRouteController,
   SignUpRouteController,
 } from "@app/auth/api";
-import EnvironmentsVerification from "@app/common/utils/environments-verification";
 import {
+  EnvironmentsVerification,
   ErrorHandlerMiddleware,
   NotFoundError,
+  RouteControllerBase,
 } from "@common-ticketing-microservices/common";
 
 const whitelist = ["*"]; // arreglo con todos los fronts que va aceptar

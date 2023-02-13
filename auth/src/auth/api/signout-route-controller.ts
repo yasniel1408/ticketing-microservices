@@ -1,5 +1,5 @@
+import { RouteControllerBase } from "@common-ticketing-microservices/common";
 import express, { Request, Response } from "express";
-import RouteControllerBase from "@app/common/route-controller-base";
 
 export default class SignOutRouteController extends RouteControllerBase {
   constructor(app: express.Application) {

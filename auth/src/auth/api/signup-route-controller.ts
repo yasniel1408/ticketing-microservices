@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import RouteControllerBase from "@app/common/route-controller-base";
 import VerifyIfExistEmail from "./validators/verify-if-exist-email";
 import { SignUpService } from "@app/auth/usecases";
 import { UserAuthenticationRequestDto } from "./models";
 import {
   CreateJwt,
+  RouteControllerBase,
   VerifyErrorMiddleware,
 } from "@common-ticketing-microservices/common";
 
