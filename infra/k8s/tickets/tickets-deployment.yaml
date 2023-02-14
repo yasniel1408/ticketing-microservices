@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-deployment
+  name: tickets-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: tickets
   template:
     metadata:
       labels:
-        app: auth
+        app: tickets
     spec:
       containers:
-        - name: auth
-          # image: "us.gcr.io/ticketing-microservices-369119/auth:latest"  // GCP
-          image: "yasniel1408/auth:latest"
+        - name: tickets
+          # image: "us.gcr.io/ticketing-microservices-369119/tickets:latest"  // GCP
+          image: "yasniel1408/tickets:latest"
           env:
             - name: JWT_KEY
               valueFrom:

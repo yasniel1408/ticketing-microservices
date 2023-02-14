@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-mongodb-service
+spec:
+  selector:
+    app: tickets-mongodb
+  type: ClusterIP
+  ports:
+    - name: tickets-mongodb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

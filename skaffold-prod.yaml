@@ -14,6 +14,14 @@ build:
         manual:
           - dest: .
             src: "src/**/*.ts"
+    - image: us.gcr.io/ticketing-microservices-369119/tickets
+      context: tickets
+      docker:
+        dockerfile: development.Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
     - image: us.gcr.io/ticketing-microservices-369119/payment # este es el nombre necesario para que encuentre la imagen correcta
       context: payment
       docker:
@@ -34,6 +42,8 @@ manifests:
   rawYaml:
     - infra/k8s/auth/auth-deployment.yaml
     - infra/k8s/auth/auth-mongodb-deployment.yaml
+    - infra/k8s/tickets/tickets-deployment.yaml
+    - infra/k8s/tickets/tickets-mongodb-deployment.yaml
     - infra/k8s/payment/payment-deployment.yaml
     - infra/k8s/client/client-deployment.yaml
 
@@ -43,3 +53,5 @@ manifests:
     - infra/k8s/auth/auth-mongodb-services-ip-cluster.yaml
     - infra/k8s/payment/payment-services-ip-cluster.yaml
     - infra/k8s/client/client-services-ip-cluster.yaml
+    - infra/k8s/tickets/tickets-services-ip-cluster.yaml
+    - infra/k8s/tickets/tickets-mongodb-services-ip-cluster.yaml

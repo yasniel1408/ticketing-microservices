@@ -23,3 +23,6 @@ export { default as EnvironmentsVerification } from "./utils/environments-verifi
 
 // INTERFACE
 export { default as CRUDRepository } from "./interfaces/crud-repository";
+
+// DB
+export { default as MongoDBConnection } from "./db/mongo-db-connection";
