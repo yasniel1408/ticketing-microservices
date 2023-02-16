@@ -6,6 +6,9 @@ import {
   VerifyCurrentUser,
   VerifyErrorMiddleware,
 } from "@common-ticketing-microservices/common";
+import { CreateTicketService } from "@app/tickets/usecases";
+import { TicketRequestDto } from "./models/ticket-request-dto";
+import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
 
 export default class CreateTicketRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -18,30 +21,22 @@ export default class CreateTicketRouteController extends RouteControllerBase {
       [
         body("title").notEmpty().withMessage("You must supply a title"),
         body("price")
-          .isNumeric()
-          .notEmpty()
-          .withMessage("You must supply a price"),
+          .isFloat({ gt: 0 })
+          .withMessage("Price must be greater than 0"),
       ],
       VerifyCurrentUser.verify,
       RequiredUserAuthentication.required,
       VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
-        const { title, price }: any = req.body;
+        const { title, price }: TicketRequestDto = req.body;
 
-        // const userCreated = await SignUpService.signup({
-        //   email,
-        //   password,
-        // });
+        const ticketCreated: TicketDocument = await CreateTicketService.create({
+          title,
+          price,
+          userId: req.currentUser!.id,
+        });
 
-        // // create jwt
-        // const userJwt = CreateJwt.create(userCreated);
-
-        // // guardar el jwt en las cookies
-        // req.session = {
-        //   jwt: userJwt,
-        // };
-
-        res.status(201).send({ ticket: "HOLA" });
+        res.status(201).send({ ticket: ticketCreated });
       }
     );
     return this.app;

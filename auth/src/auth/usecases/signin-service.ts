@@ -2,12 +2,15 @@ import UserRepository from "@app/auth/domain/user-repository";
 import { HashPasswordService } from ".";
 import { UserAuthenticationRequestDto } from "@app/auth/api/models";
 import { BadRequestError } from "@common-ticketing-microservices/common";
+import { UserDocument } from "@app/auth/domain/models/user-document";
 
 class SignInService {
-  async signin(user: UserAuthenticationRequestDto): Promise<any> {
+  async signin(user: UserAuthenticationRequestDto): Promise<UserDocument> {
     const { email, password }: UserAuthenticationRequestDto = user;
 
-    const existingUser = await UserRepository.getUserByEmail(email);
+    const existingUser: UserDocument | null = await UserRepository.getUserByEmail(
+      email
+    );
 
     if (!existingUser) {
       throw new BadRequestError("Invalid credentials!");

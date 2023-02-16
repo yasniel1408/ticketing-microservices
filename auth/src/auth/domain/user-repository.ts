@@ -1,17 +1,18 @@
 import { CRUDRepository } from "@common-ticketing-microservices/common";
 import { UserDao } from "./models/user-dao";
 import { UserDto } from "./models/user-dto";
+import { UserDocument } from "./models/user-document";
 
 class UserRepository implements CRUDRepository<UserDto> {
-  async findAll(limit = 10, page = 0): Promise<any[]> {
+  async findAll(limit = 10, page = 0): Promise<UserDocument[]> {
     return UserDao.find()
       .limit(limit)
       .skip(limit * page)
       .exec();
   }
 
-  async create(resource: UserDto): Promise<any> {
-    const user: any = new UserDao(resource);
+  async create(resource: UserDto): Promise<UserDocument> {
+    const user: UserDocument = new UserDao(resource);
     await user.save();
     return user;
   }
@@ -25,11 +26,11 @@ class UserRepository implements CRUDRepository<UserDto> {
     return id;
   }
 
-  async getUserByEmail(email: string) {
+  async getUserByEmail(email: string): Promise<UserDocument | null> {
     return UserDao.findOne({ email: email }).exec();
   }
 
-  async getById(id: string): Promise<any> {
+  async getById(id: string): Promise<UserDocument | null> {
     const user = await UserDao.findById({
       _id: id,
     }).exec();

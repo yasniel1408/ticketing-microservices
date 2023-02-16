@@ -1,8 +1,7 @@
-import UserAuthenticationRequestDto from "../models/user-authentication-request-dto";
 import jwt from "jsonwebtoken";
 
 class CreateJwt<T> {
-  create(user: UserAuthenticationRequestDto & { id: string }): string {
+  create(user: any & { id: string }): string {
     const userJwt: string = jwt.sign(
       {
         id: user.id,

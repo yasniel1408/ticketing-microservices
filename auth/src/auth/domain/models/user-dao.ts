@@ -1,6 +1,9 @@
 import mongoose, { Schema } from "mongoose";
 import { HashPasswordService } from "@app/auth/usecases";
 import { UserDto } from "./user-dto";
+import { UserDocument } from "./user-document";
+
+interface UserModel extends mongoose.Model<UserDocument> {}
 
 const userSchema = new Schema<UserDto>(
   {
@@ -33,6 +36,6 @@ userSchema.pre("save", async function (done) {
   done();
 });
 
-const UserDao = mongoose.model<UserDto>("User", userSchema);
+const UserDao = mongoose.model<UserDocument, UserModel>("User", userSchema);
 
 export { UserDao };

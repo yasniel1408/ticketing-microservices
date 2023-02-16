@@ -1,10 +1,9 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
-import { app } from "../app";
-import request from "supertest";
+import { CreateJwt } from "@common-ticketing-microservices/common";
 
 declare global {
-  var signupAndGetCookie: () => Promise<string[]>;
+  var signupAndGetCookie: () => string[];
 }
 
 let mongo: any;
@@ -31,19 +30,28 @@ afterAll(async () => {
 });
 
 //esto es para evitar tener que hacer registro de users cada ves que se requiera pudiera estar en una funcion aparte pero esta es una manera elegante de resolver sin tener importanciones luego en todos los archivos de prueba
-global.signupAndGetCookie = async () => {
-  const email: string = "test@gmail.com";
-  const password: string = "test";
+//en este casi debemos devolver un ejemplo de jwt para simular un user autenticado
+global.signupAndGetCookie = () => {
+  // 1- Crear JWT payload
+  const payload = {
+    id: "12334nk4jl24l5j45",
+    email: "test@test.com",
+  };
 
-  const res = await request(app)
-    .post("/api/users/signup")
-    .send({
-      email,
-      password,
-    })
-    .expect(201);
+  // 2- Create JWT
+  const token = CreateJwt.create(payload);
 
-  const cookie = res.get("Set-Cookie");
+  // 3- Crear session Object
+  const session = { jwt: token };
 
-  return cookie;
+  // 4- Convertir la session en JSON
+  const sessionJSON = JSON.stringify(session);
+
+  // 5- Tomar JSON and encode a base64
+  const base64 = Buffer.from(sessionJSON).toString("base64");
+
+  // 6- Retornar la cookie simulada
+  const cookie = `session=${base64}`;
+
+  return [cookie];
 };

@@ -6,6 +6,7 @@ import {
   RouteControllerBase,
   VerifyErrorMiddleware,
 } from "@common-ticketing-microservices/common";
+import { UserDocument } from "@app/auth/domain/models/user-document";
 
 export default class SignInRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -28,10 +29,10 @@ export default class SignInRouteController extends RouteControllerBase {
       ],
       VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
-        const existingUser = await SignInService.signin(req.body);
+        const existingUser: UserDocument = await SignInService.signin(req.body);
 
         // create jwt
-        const userJwt = CreateJwt.create(existingUser);
+        const userJwt: string = CreateJwt.create(existingUser);
 
         // guardar el jwt en las cookies
         req.session = {
