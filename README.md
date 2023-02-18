@@ -35,3 +35,17 @@ http://localhost:8222/streaming
 [librerira => https://www.npmjs.com/package/node-nats-streaming](https://www.npmjs.com/package/node-nats-streaming)
 
 [doc => https://docs.nats.io/](https://docs.nats.io)
+
+## 4- Para monitorizar con graficos podemos correr el siguiente comando
+
+```
+docker run -p 8282:8282 \
+  -e STAN_URL=http://nats-url:4222 \
+  -e STAN_MONITOR_URL=http://nats-url:8222 \
+  -e STAN_CLUSTER=test-cluster \
+  piotrpersona/nats-streaming-ui:latest
+```
+
+Doc => https://github.com/piotrpersona/nats-streaming-ui
+
+Luego puedes verlo en la direccion => <http://localhost:8282>
