@@ -4,7 +4,12 @@ import cookieSession from "cookie-session";
 import cors from "cors";
 import { json } from "body-parser";
 import helmet from "helmet";
-import { CreateTicketRouteController } from "@app/tickets/api";
+import {
+  CreateTicketRouteController,
+  GetAllTicketRouteController,
+  GetTicketRouteController,
+  UpdateTicketRouteController,
+} from "@app/tickets/api";
 import {
   EnvironmentsVerification,
   ErrorHandlerMiddleware,
@@ -43,6 +48,9 @@ const routes: Array<RouteControllerBase> = [];
 
 // Routes
 routes.push(new CreateTicketRouteController(app));
+routes.push(new GetTicketRouteController(app));
+routes.push(new GetAllTicketRouteController(app));
+routes.push(new UpdateTicketRouteController(app));
 
 app.all("*", async () => {
   throw new NotFoundError();

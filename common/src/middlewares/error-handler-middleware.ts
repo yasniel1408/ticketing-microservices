@@ -8,6 +8,8 @@ class ErrorHandlerMiddleware {
       return res.status(err.statusCode).send(err.serializeError());
     }
 
+    console.error(err);
+
     res.status(400).send({
       errors: [{ message: err.message }],
     } as IResponseErrorInterface);

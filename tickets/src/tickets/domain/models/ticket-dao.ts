@@ -9,6 +9,7 @@ const ticketSchema = new Schema<TicketDto>(
     title: {
       type: String,
       require: true,
+      unique: true,
     },
     price: {
       type: Number,
