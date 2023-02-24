@@ -21,11 +21,11 @@ spec:
               "4222",
               "-m",
               "8222",
-              "-hbi",
+              "-hbi", # Frecuencia con la que un servidor va a realizar solicitudes a sus clientes
               "5s",
-              "-hbt",
+              "-hbt", # En cuento tiempo debe responder cada cliente
               "5s",
-              "-hbf",
+              "-hbf", # Cantidad de veces que un cliente puede fallar antes de que NATS Server asuma que esa conexion esta muerta
               "2",
               "-SD",
               "-cid",
