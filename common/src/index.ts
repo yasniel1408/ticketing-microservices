@@ -26,3 +26,12 @@ export { default as CRUDRepository } from "./interfaces/crud-repository";
 
 // DB
 export { default as MongoDBConnection } from "./db/mongo-db-connection";
+
+// EVENTs
+export { default as BaseListener } from "./events/base-listener";
+export { default as BasePublisher } from "./events/base-publisher";
+export { default as BaseEvent } from "./events/base-event";
+
+export { default as TicketSubjects } from "./events/tickets/ticket-subjects";
+export { default as TicketCreatedEvent } from "./events/tickets/ticket-created-event";
+export { default as TicketUpdatedEvent } from "./events/tickets/ticket-updated-event";
