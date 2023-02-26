@@ -10,7 +10,7 @@ import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
 
 export default class GetTicketRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
-    super(app, "CreateRoute", "/api/tickets/:id");
+    super(app, "GetOneRoute", "/api/tickets/:id");
   }
 
   configureRoutes(): express.Application {

@@ -29,7 +29,7 @@ spec:
               "2",
               "-SD",
               "-cid",
-              "ticketing",
+              "ticketing", # Este es el nombre al cual luego hacermos refetencia para conectarnos
             ]
           resources:
             requests:

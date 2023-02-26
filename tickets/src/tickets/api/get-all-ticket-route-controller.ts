@@ -8,7 +8,7 @@ import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
 
 export default class GetAllTicketRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
-    super(app, "CreateRoute", "/api/tickets");
+    super(app, "GetAllRoute", "/api/tickets");
   }
 
   configureRoutes(): express.Application {

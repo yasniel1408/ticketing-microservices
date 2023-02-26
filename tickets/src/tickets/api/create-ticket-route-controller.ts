@@ -9,7 +9,8 @@ import {
 import { CreateTicketService } from "@app/tickets/usecases";
 import { TicketRequestDto } from "./models/ticket-request-dto";
 import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
-
+import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
+import NatsClientWrapper from "@app/nats-client";
 export default class CreateTicketRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
     super(app, "CreateRoute", "/api/tickets");
@@ -34,6 +35,13 @@ export default class CreateTicketRouteController extends RouteControllerBase {
           title,
           price,
           userId: req.currentUser!.id,
+        });
+
+        await new TicketCreatedPublisher(NatsClientWrapper.client).publish({
+          id: ticketCreated.id,
+          title: ticketCreated.title,
+          price: ticketCreated.price.valueOf(),
+          userId: ticketCreated.userId,
         });
 
         res.status(201).send({ ticket: ticketCreated });

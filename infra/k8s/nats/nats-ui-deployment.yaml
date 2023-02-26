@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-ui-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats-ui
+  template:
+    metadata:
+      labels:
+        app: nats-ui
+    spec:
+      containers:
+        - name: nats-ui
+          image: "piotrpersona/nats-streaming-ui:latest"
+          env:
+            - name: STAN_URL
+              value: "http://nats-service:4222"
+            - name: STAN_MONITOR_URL
+              value: "http://nats-service:8222"
+            - name: STAN_CLUSTER
+              value: "ticketing"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "800m"

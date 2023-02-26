@@ -38,14 +38,22 @@ http://localhost:8222/streaming
 
 ## 4- Para monitorizar con graficos podemos correr el siguiente comando
 
+1- Esto es para correrlo fuera del cluster
+
 ```
 docker run -p 8282:8282 \
-  -e STAN_URL=http://nats-url:4222 \
-  -e STAN_MONITOR_URL=http://nats-url:8222 \
+  -e STAN_URL=http://localhost:4222 \
+  -e STAN_MONITOR_URL=http://localhost:8222 \
   -e STAN_CLUSTER=test-cluster \
   piotrpersona/nats-streaming-ui:latest
 ```
 
-Doc => https://github.com/piotrpersona/nats-streaming-ui
+2- Para correrlo dentro del culster debes agregarlo a la infra y luego mapear los puertos con este comando:
+
+```
+sudo kubectl port-forward <nombre_pod_nats_ui> 8282:8282
+```
+
+Doc => <https://github.com/piotrpersona/nats-streaming-ui>
 
 Luego puedes verlo en la direccion => <http://localhost:8282>

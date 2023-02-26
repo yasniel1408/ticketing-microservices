@@ -10,10 +10,12 @@ import {
 import { GetTicketService, UpdateTicketService } from "@app/tickets/usecases";
 import { body } from "express-validator";
 import { TicketRequestDto } from "./models/ticket-request-dto";
+import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
+import NatsClientWrapper from "@app/nats-client";
 
 export default class UpdateTicketRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
-    super(app, "CreateRoute", "/api/tickets/:id");
+    super(app, "UpdateRoute", "/api/tickets/:id");
   }
 
   configureRoutes(): express.Application {
@@ -43,6 +45,13 @@ export default class UpdateTicketRouteController extends RouteControllerBase {
           title,
           price,
           userId: req.currentUser.id,
+        });
+
+        await new TicketUpdatedPublisher(NatsClientWrapper.client).publish({
+          id: wantedTicket.id,
+          title: wantedTicket.title,
+          price: wantedTicket.price.valueOf(),
+          userId: wantedTicket.userId,
         });
 
         res.status(200).send({ ticketId });

@@ -13,9 +13,9 @@ const start = async () => {
     );
   });
   app.listen(3000, () => {
-    console.log("THE SERVICE RUN CORRECTLY");
+    console.log("The Server is running!!!");
+    MongoDBConnection.sync();
   });
-  MongoDBConnection.sync();
 };
 
 start();
