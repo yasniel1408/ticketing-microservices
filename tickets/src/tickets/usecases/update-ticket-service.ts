@@ -1,7 +1,5 @@
-import { TicketRepository } from "@app/tickets/domain";
-import { TicketDto } from "../domain/models/ticket-dto";
-import { NotFoundError } from "@common-ticketing-microservices/common";
-import { GetTicketService } from ".";
+import {TicketRepository} from "@app/tickets/domain";
+import {TicketDto} from "../domain/models/ticket-dto";
 
 class UpdateTicketService {
   async update(id: string, ticket: TicketDto): Promise<string> {

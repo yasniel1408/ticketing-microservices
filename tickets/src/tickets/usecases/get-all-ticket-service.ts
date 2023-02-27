@@ -1,5 +1,5 @@
-import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
-import { TicketRepository } from "@app/tickets/domain";
+import {TicketDocument} from "@app/tickets/domain/models/ticket-document";
+import {TicketRepository} from "@app/tickets/domain";
 
 class GetAllTicketService {
   async getAll(): Promise<TicketDocument[]> {

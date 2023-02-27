@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { app } from "../../../app";
 import request from "supertest";
+import NatsClientWrapper from "@app/nats-client";
 
 it("return a 404 if the provided id does not exist", async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -45,7 +46,7 @@ it("return a 400 if the user provides and invalid title or price", async () => {
     });
 
   await request(app)
-    .put(`/api/tickets/${ticket.body.ticket.id}`)
+    .put(`/api/tickets/${ticket.body.ticket.id!}`)
     .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
     .send({
       title: "",
@@ -91,4 +92,5 @@ it("update a ticket", async () => {
 
   expect(ticketUpdated.body.ticket.title).toEqual("Example Updated");
   expect(ticketUpdated.body.ticket.price).toEqual(20);
+  expect(NatsClientWrapper.client.publish).toHaveBeenCalled();
 });

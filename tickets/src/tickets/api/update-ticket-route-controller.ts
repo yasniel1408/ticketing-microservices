@@ -1,16 +1,16 @@
-import express, { Request, Response } from "express";
+import express, {Request, Response} from "express";
 import {
-  NotAuthorizedError,
-  NotFoundError,
-  RequiredUserAuthentication,
-  RouteControllerBase,
-  VerifyCurrentUser,
-  VerifyErrorMiddleware,
+    NotAuthorizedError,
+    NotFoundError,
+    RequiredUserAuthentication,
+    RouteControllerBase,
+    VerifyCurrentUser,
+    VerifyErrorMiddleware,
 } from "@common-ticketing-microservices/common";
-import { GetTicketService, UpdateTicketService } from "@app/tickets/usecases";
-import { body } from "express-validator";
-import { TicketRequestDto } from "./models/ticket-request-dto";
-import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
+import {GetTicketService, UpdateTicketService} from "@app/tickets/usecases";
+import {body} from "express-validator";
+import {TicketRequestDto} from "./models/ticket-request-dto";
+import {TicketUpdatedPublisher} from "../events/publishers/ticket-updated-publisher";
 import NatsClientWrapper from "@app/nats-client";
 
 export default class UpdateTicketRouteController extends RouteControllerBase {

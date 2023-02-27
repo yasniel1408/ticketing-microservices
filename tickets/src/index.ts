@@ -1,8 +1,5 @@
-import {
-  MongoDBConnection,
-  RouteControllerBase,
-} from "@common-ticketing-microservices/common";
-import { app, routes } from "./app";
+import {MongoDBConnection, RouteControllerBase,} from "@common-ticketing-microservices/common";
+import {app, routes} from "./app";
 import NatsClientWrapper from "./nats-client";
 
 const start = async () => {
@@ -17,8 +14,8 @@ const start = async () => {
     console.log("The Server is running!!!");
     await MongoDBConnection.sync();
     await NatsClientWrapper.connect(
-      "ticketing",
-      "puedesercualquieridserviciotickets",
+      "ticketing", // este es el nombre del cluster que declaramos que tomaria el nats-deployment.yml en sus argumentos
+      "tickets-service", // este es el id del servicio, dejamos el nombre para luego el dashboard de eventos poder saber que servicio es
       "http://nats-service:4222"
     );
     NatsClientWrapper.client.on("close", () => {

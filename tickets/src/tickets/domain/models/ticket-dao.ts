@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import { TicketDto } from "./ticket-dto";
-import { TicketDocument } from "./ticket-document";
+import mongoose, {Schema} from "mongoose";
+import {TicketDto} from "./ticket-dto";
+import {TicketDocument} from "./ticket-document";
 
 interface TicketModel extends mongoose.Model<TicketDocument> {}
 

@@ -29,6 +29,10 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
+// de esta manera y creando dentro de __mocks__ el archivo a mockear quedaria mockeado esta clase
+// importamos el real y jest ya sabe que hay un mock con el archivo con el mismo nombre y misma clase dentro de __mocks__
+jest.mock("../nats-client");
+
 //esto es para evitar tener que hacer registro de users cada ves que se requiera pudiera estar en una funcion aparte pero esta es una manera elegante de resolver sin tener importanciones luego en todos los archivos de prueba
 //en este casi debemos devolver un ejemplo de jwt para simular un user autenticado
 global.signupAndGetCookie = () => {

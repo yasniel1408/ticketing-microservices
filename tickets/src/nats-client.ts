@@ -1,4 +1,4 @@
-import nats, { Stan } from "node-nats-streaming";
+import nats, {Stan} from "node-nats-streaming";
 
 class NatsClientWrapper {
   public _client?: Stan;

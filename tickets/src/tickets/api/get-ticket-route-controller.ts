@@ -1,12 +1,7 @@
-import express, { Request, Response } from "express";
-import { param } from "express-validator";
-import {
-  NotFoundError,
-  RouteControllerBase,
-  VerifyErrorMiddleware,
-} from "@common-ticketing-microservices/common";
-import { GetTicketService } from "@app/tickets/usecases";
-import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
+import express, {Request, Response} from "express";
+import {NotFoundError, RouteControllerBase, VerifyErrorMiddleware,} from "@common-ticketing-microservices/common";
+import {GetTicketService} from "@app/tickets/usecases";
+import {TicketDocument} from "@app/tickets/domain/models/ticket-document";
 
 export default class GetTicketRouteController extends RouteControllerBase {
   constructor(app: express.Application) {

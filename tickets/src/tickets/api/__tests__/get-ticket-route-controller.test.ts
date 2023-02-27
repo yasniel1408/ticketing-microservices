@@ -1,6 +1,6 @@
-import { app } from "../../../app";
+import {app} from "../../../app";
 import request from "supertest";
-import { Types } from "mongoose";
+import {Types} from "mongoose";
 
 it("return a 404 if the ticket is not found", async () => {
   const id = new Types.ObjectId().toHexString();
