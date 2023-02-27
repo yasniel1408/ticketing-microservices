@@ -1,0 +1,35 @@
+{
+	"folders": [
+        {
+            "path": "."
+        },
+        {
+            "name": "client",
+            "path": "client"
+        },
+        {
+            "name": "auth",
+            "path": "auth"
+        },
+        {
+            "name": "orders",
+            "path": "orders"
+        },
+        {
+            "name": "payment",
+            "path": "payment"
+        },
+        {
+            "name": "tickets",
+            "path": "tickets"
+        }
+    ],
+    "settings": {
+        "jest.disabledWorkspaceFolders": [
+            "ticketing-microservices",
+            "client",
+            "payment",
+            "nats-test"
+        ]
+    }
+}

@@ -20,6 +20,14 @@ build:
         manual:
           - dest: .
             src: "src/**/*.ts"
+    - image: yasniel1408/orders
+      context: orders
+      docker:
+        dockerfile: development.Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
     - image: yasniel1408/payment
       context: payment
       docker:
