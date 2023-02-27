@@ -1,10 +1,17 @@
-import {MongoDBConnection, RouteControllerBase,} from "@common-ticketing-microservices/common";
-import {app, routes} from "./app";
+import {
+  MongoDBConnection,
+  RouteControllerBase,
+} from "@common-ticketing-microservices/common";
+import { app, routes } from "./app";
 import NatsClientWrapper from "./nats-client";
 
 const start = async () => {
   if (!process.env.JWT_KEY) throw new Error("JWT_KEY undefined!!!");
   if (!process.env.MONGO_URI) throw new Error("MONGO_URI undefined!!!");
+  if (!process.env.NATS_URL) throw new Error("NATS_URL undefined!!!");
+  if (!process.env.NATS_CLIENT_ID)
+    throw new Error("NATS_CLIENT_ID undefined!!!");
+  if (!process.env.NATS_CLUSTER) throw new Error("NATS_CLUSTER undefined!!!");
   routes.forEach((route: RouteControllerBase) => {
     console.log(
       `Routes configured for ${route.name}, with path: ${route.path}`
@@ -14,9 +21,9 @@ const start = async () => {
     console.log("The Server is running!!!");
     await MongoDBConnection.sync();
     await NatsClientWrapper.connect(
-      "ticketing", // este es el nombre del cluster que declaramos que tomaria el nats-deployment.yml en sus argumentos
-      "tickets-service", // este es el id del servicio, dejamos el nombre para luego el dashboard de eventos poder saber que servicio es
-      "http://nats-service:4222"
+      process.env.NATS_CLUSTER!, // este es el nombre del cluster que declaramos que tomaria el nats-deployment.yml en sus argumentos
+      process.env.NATS_CLIENT_ID!, // este es el id del servicio, dejamos el nombre para luego el dashboard de eventos poder saber que servicio es
+      process.env.NATS_URL!
     );
     NatsClientWrapper.client.on("close", () => {
       // este evento se captura cuando se cierra la conexion

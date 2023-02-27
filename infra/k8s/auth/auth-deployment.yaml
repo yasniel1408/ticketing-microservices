@@ -16,6 +16,13 @@ spec:
         - name: auth
           # image: "us.gcr.io/ticketing-microservices-369119/auth:latest"  // GCP
           image: "yasniel1408/auth:latest"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "800m"
           env:
             - name: JWT_KEY
               valueFrom:

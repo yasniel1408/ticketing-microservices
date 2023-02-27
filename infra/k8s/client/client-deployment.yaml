@@ -16,3 +16,10 @@ spec:
         - name: client
           # image: "us.gcr.io/ticketing-microservices-369119/client:latest"
           image: "yasniel1408/client:latest"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "800m"

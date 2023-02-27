@@ -16,11 +16,26 @@ spec:
         - name: tickets
           # image: "us.gcr.io/ticketing-microservices-369119/tickets:latest"  // GCP
           image: "yasniel1408/tickets:latest"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "800m"
           env:
-            - name: JWT_KEY
+            - name: JWT_KEY # esta configuaracion de aca es para que tome los valores que hay del secret en el cluster y los tome como variable de entorno dentro del contenedor
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
             - name: MONGO_URI
-              value: 'mongodb://tickets-mongodb-service:27017'
+              value: "mongodb://tickets-mongodb-service:27017"
+            - name: NATS_URL
+              value: "http://nats-service:4222"
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name # esto es para que tome el nombre del deployment tal cual ya que es unico asi podriamos saber en caso de tener multiples pods a cual hace refetencia
+            - name: NATS_CLUSTER
+              value: "ticketing"

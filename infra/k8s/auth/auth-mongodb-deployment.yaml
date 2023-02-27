@@ -15,3 +15,10 @@ spec:
       containers:
         - name: auth-mongodb
           image: "mongo:latest"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "800m"
