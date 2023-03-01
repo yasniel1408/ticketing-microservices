@@ -1,4 +1,4 @@
-export interface TicketRequestDto {
+export interface OrderRequestDto {
   title: string;
   price: number;
 }

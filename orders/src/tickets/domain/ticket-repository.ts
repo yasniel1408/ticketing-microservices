@@ -1,8 +1,8 @@
-import {CRUDRepository} from "@common-ticketing-microservices/common";
-import {TicketDto} from "./models/ticket-dto";
-import {TicketDao} from "./models/ticket-dao";
-import {TicketDocument} from "./models/ticket-document";
-import mongoose, {Types} from "mongoose";
+import { CRUDRepository } from "@common-ticketing-microservices/common";
+import { TicketDto } from "./models/ticket-dto";
+import { TicketDao } from "./models/ticket-dao";
+import { TicketDocument } from "./models/ticket-document";
+import mongoose, { Types } from "mongoose";
 
 class TicketRepository implements CRUDRepository<TicketDto> {
   async findAll(limit = 10, page = 0): Promise<TicketDocument[]> {

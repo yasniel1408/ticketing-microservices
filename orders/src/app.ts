@@ -5,11 +5,12 @@ import cors from "cors";
 import { json } from "body-parser";
 import helmet from "helmet";
 import {
-  CreateTicketRouteController,
-  GetAllTicketRouteController,
-  GetTicketRouteController,
-  UpdateTicketRouteController,
+  CreateOrderRouteController,
+  GetAllOrderRouteController,
+  GetOrderRouteController,
+  UpdateOrderRouteController,
 } from "@app/orders/api";
+
 import {
   EnvironmentsVerification,
   ErrorHandlerMiddleware,
@@ -47,10 +48,10 @@ app.use(
 const routes: Array<RouteControllerBase> = [];
 
 // Routes
-routes.push(new CreateTicketRouteController(app));
-routes.push(new GetTicketRouteController(app));
-routes.push(new GetAllTicketRouteController(app));
-routes.push(new UpdateTicketRouteController(app));
+routes.push(new CreateOrderRouteController(app));
+routes.push(new GetOrderRouteController(app));
+routes.push(new GetAllOrderRouteController(app));
+routes.push(new UpdateOrderRouteController(app));
 
 app.all("*", async () => {
   throw new NotFoundError();

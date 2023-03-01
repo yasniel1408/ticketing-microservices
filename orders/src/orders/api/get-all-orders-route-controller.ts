@@ -3,12 +3,10 @@ import {
   RouteControllerBase,
   VerifyErrorMiddleware,
 } from "@common-ticketing-microservices/common";
-import { GetAllTicketService } from "@app/orders/usecases";
-import { TicketDocument } from "@app/orders/domain/models/ticket-document";
 
-export default class GetAllTicketRouteController extends RouteControllerBase {
+export default class GetAllOrdersRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
-    super(app, "GetAllRoute", "/api/tickets");
+    super(app, "GetAllRoute", "/api/orders");
   }
 
   configureRoutes(): express.Application {
@@ -16,9 +14,9 @@ export default class GetAllTicketRouteController extends RouteControllerBase {
       this.path,
       VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
-        const tickets: TicketDocument[] = await GetAllTicketService.getAll();
+        // const tickets: TicketDocument[] = await GetAllTicketService.getAll();
 
-        res.status(200).send({ tickets });
+        res.status(200).send({ tickets: [] });
       }
     );
     return this.app;
