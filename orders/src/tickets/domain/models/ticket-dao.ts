@@ -14,10 +14,7 @@ const ticketSchema = new Schema<TicketDto>(
     price: {
       type: Number,
       require: true,
-    },
-    userId: {
-      type: String,
-      require: true,
+      min: 0,
     },
   },
   {
