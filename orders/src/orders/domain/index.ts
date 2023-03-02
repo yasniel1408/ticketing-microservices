@@ -1,1 +1,1 @@
-export { default as TicketRepository } from "./order-repository";
+export { default as OrderRepository } from "./order-repository";

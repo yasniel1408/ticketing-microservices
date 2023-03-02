@@ -1,6 +1,4 @@
 import express, { Request, Response } from "express";
-import { body } from "express-validator";
-import VerifyIfExistEmail from "./validators/verify-if-exist-email";
 import { SignUpService } from "@app/auth/usecases";
 import { UserAuthenticationRequestDto } from "./models";
 import {
@@ -8,6 +6,7 @@ import {
   RouteControllerBase,
   VerifyErrorMiddleware,
 } from "@common-ticketing-microservices/common";
+import { ValidateBodySignUp } from "./validators";
 
 export default class SignUpRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -17,21 +16,7 @@ export default class SignUpRouteController extends RouteControllerBase {
   configureRoutes(): express.Application {
     this.app.post(
       this.path,
-      [
-        body("email")
-          .isEmail()
-          .withMessage("Email must be valid")
-          .notEmpty()
-          .withMessage("You must supply a email"),
-        body("password")
-          .isString()
-          .trim()
-          .isLength({ min: 4, max: 20 })
-          .withMessage("Password must be between 4 and 20 character")
-          .notEmpty()
-          .withMessage("You must supply a password"),
-        VerifyIfExistEmail.verifyEmail,
-      ],
+      ValidateBodySignUp.validate,
       VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
         const { email, password }: UserAuthenticationRequestDto = req.body;

@@ -1,11 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { UserDao } from "@app/auth/domain/models/user-dao";
 import { BadRequestError } from "@common-ticketing-microservices/common";
+import { UserDocument } from "@app/auth/domain/models/user-document";
+import { GetUserByEmailService } from "@app/auth/usecases";
 
 class VerifyIfExistEmail {
   verifyEmail = async (req: Request, res: Response, next: NextFunction) => {
     const { email } = req.body;
-    const user = await UserDao.findOne({ email });
+    const user: UserDocument | null = await GetUserByEmailService.getByEmail(
+      email
+    );
 
     if (user) {
       throw new BadRequestError("The email is in use!");
