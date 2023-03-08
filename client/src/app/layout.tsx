@@ -1,8 +1,8 @@
 import './globals.css';
 import { ReactNode } from 'react';
 import { headers } from 'next/headers';
-import Header from './components/Header/Header';
 import { AuthenticationProvider } from '@/context/AuthenticationProvider';
+import Header from './components/Header/Header';
 
 // Esta es la manera de hacer fetching de datos en Next 13
 // Y para el caso de los microservicios necesitamos comunicarnos

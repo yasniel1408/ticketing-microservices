@@ -16,6 +16,14 @@ class OrderRepository {
     }).exec();
     return order;
   }
+
+  async findAllByUserId(userId: string): Promise<OrderDocument[]> {
+    return OrderDao.find({
+      userId,
+    })
+      .populate("ticket")
+      .exec();
+  }
 }
 
 export default new OrderRepository();

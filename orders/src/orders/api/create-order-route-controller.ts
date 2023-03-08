@@ -3,6 +3,7 @@ import { body } from "express-validator";
 import {
   BadRequestError,
   NotFoundError,
+  OrderStatus,
   RequiredUserAuthentication,
   RouteControllerBase,
   VerifyCurrentUser,
@@ -10,7 +11,10 @@ import {
 } from "@common-ticketing-microservices/common";
 import mongoose from "mongoose";
 import { ExistTicketService } from "@app/tickets/usecases";
-import { GetOrderByTicketNotCancelledService } from "@app/orders/usecases";
+import {
+  CreateOrderService,
+  GetOrderByTicketNotCancelledService,
+} from "@app/orders/usecases";
 
 export default class CreateOrderRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -25,10 +29,6 @@ export default class CreateOrderRouteController extends RouteControllerBase {
           .notEmpty()
           .custom((input: string) => mongoose.Types.ObjectId.isValid(input)) // de esta manera validamos que el id sea un id de mongo real
           .withMessage("You must supply a ticketId"),
-        body("title").notEmpty().withMessage("You must supply a title"),
-        body("price")
-          .isFloat({ gt: 0 })
-          .withMessage("Price must be greater than 0"),
       ],
       VerifyCurrentUser.verify,
       RequiredUserAuthentication.required,
@@ -53,20 +53,17 @@ export default class CreateOrderRouteController extends RouteControllerBase {
           );
         }
 
-        // const ticketCreated: TicketDocument = await CreateTicketService.create({
-        //   title,
-        //   price,
-        //   userId: req.currentUser!.id,
-        // });
+        // Salvar la orden en base de datos para el ticket que le pasamos con el user actual
+        const order = CreateOrderService.create(ticketId, req.currentUser?.id!);
 
         // await new TicketCreatedPublisher(NatsClientWrapper.client).publish({
         //   id: ticketCreated.id,
-        //   title: ticketCreated.title,
         //   price: ticketCreated.price.valueOf(),
+        //   title: ticketCreated.title,
         //   userId: ticketCreated.userId,
         // });
 
-        res.status(201).send({ ticket: "ticketCreated" });
+        res.status(201).send({ order });
       }
     );
     return this.app;

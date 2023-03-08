@@ -6,7 +6,7 @@ import { json } from "body-parser";
 import helmet from "helmet";
 import {
   CreateOrderRouteController,
-  GetAllOrderRouteController,
+  GetAllOrdersByUserIdRouteController,
   GetOrderRouteController,
   UpdateOrderRouteController,
 } from "@app/orders/api";
@@ -50,7 +50,7 @@ const routes: Array<RouteControllerBase> = [];
 // Routes
 routes.push(new CreateOrderRouteController(app));
 routes.push(new GetOrderRouteController(app));
-routes.push(new GetAllOrderRouteController(app));
+routes.push(new GetAllOrdersByUserIdRouteController(app));
 routes.push(new UpdateOrderRouteController(app));
 
 app.all("*", async () => {

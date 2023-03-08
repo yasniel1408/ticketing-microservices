@@ -4,8 +4,8 @@ import { TicketCrudRepository } from "@app/tickets/domain";
 
 class CreateTicketService {
   async create(ticket: TicketDto): Promise<TicketDocument> {
-    const userCreated = await TicketCrudRepository.create(ticket);
-    return userCreated;
+    const ticketCreated = await TicketCrudRepository.create(ticket);
+    return ticketCreated;
   }
 }
 

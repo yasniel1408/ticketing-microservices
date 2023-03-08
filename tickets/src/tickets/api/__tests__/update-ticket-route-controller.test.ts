@@ -37,31 +37,32 @@ it("return a 401 if the user does not own the ticket", async () => {
 it("return a 400 if the user provides and invalid title or price", async () => {
   const cookies = global.signupAndGetCookie();
 
-  const ticket = await request(app)
+  await request(app)
     .post(`/api/tickets`)
     .set("Cookie", cookies)
     .send({
       title: "Example",
       price: 10,
+    })
+    .then(async (ticket) => {
+      await request(app)
+        .put(`/api/tickets/${ticket.body.ticket.id!}`)
+        .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
+        .send({
+          title: "",
+          price: 10,
+        })
+        .expect(400);
+
+      await request(app)
+        .put(`/api/tickets/${ticket.body.ticket.id}`)
+        .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
+        .send({
+          title: "Example222",
+          price: -10,
+        })
+        .expect(400);
     });
-
-  await request(app)
-    .put(`/api/tickets/${ticket.body.ticket.id!}`)
-    .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
-    .send({
-      title: "",
-      price: 10,
-    })
-    .expect(400);
-
-  await request(app)
-    .put(`/api/tickets/${ticket.body.ticket.id}`)
-    .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
-    .send({
-      title: "Example222",
-      price: -10,
-    })
-    .expect(400);
 });
 
 it("update a ticket", async () => {
