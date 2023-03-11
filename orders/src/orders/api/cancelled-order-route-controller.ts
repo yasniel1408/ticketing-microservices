@@ -9,14 +9,13 @@ import {
   RouteControllerBase,
   VerifyCurrentUser,
   VerifyErrorMiddleware,
-  OrderStatus,
 } from "@common-ticketing-microservices/common";
 import {
   VerifyTheExistenceOfTheOrder,
   VerifyTheUserIsTheOwnerOfTheOrder,
 } from "@app/orders/common/middlewares";
 
-export default class DeleteOrderRouteController extends RouteControllerBase {
+export default class CancelledOrderRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
     super(app, "UpdateRoute", "/api/orders/:id");
   }

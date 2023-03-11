@@ -5,6 +5,7 @@ import cors from "cors";
 import { json } from "body-parser";
 import helmet from "helmet";
 import {
+  CancelledOrderRouteController,
   CreateOrderRouteController,
   GetAllOrdersByUserIdRouteController,
   GetOrderRouteController,
@@ -50,6 +51,7 @@ const routes: Array<RouteControllerBase> = [];
 routes.push(new CreateOrderRouteController(app));
 routes.push(new GetOrderRouteController(app));
 routes.push(new GetAllOrdersByUserIdRouteController(app));
+routes.push(new CancelledOrderRouteController(app));
 
 app.all("*", async () => {
   throw new NotFoundError();
