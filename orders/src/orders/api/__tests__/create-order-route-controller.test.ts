@@ -1,6 +1,5 @@
 import { app } from "@app/app";
 import request from "supertest";
-import NatsClientWrapper from "@app/nats-client";
 import mongoose from "mongoose";
 import { CreateTicketService } from "@app/tickets/usecases";
 import { CreateOrderService } from "@app/orders/usecases";
@@ -40,5 +39,3 @@ it("reserved a ticket", async () => {
       .expect(201);
   });
 });
-
-// it.todo("emit event");

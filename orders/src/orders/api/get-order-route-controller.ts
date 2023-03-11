@@ -1,12 +1,12 @@
 import express, { Request, Response } from "express";
 import {
-  NotAuthorizedError,
-  NotFoundError,
   RouteControllerBase,
   VerifyErrorMiddleware,
 } from "@common-ticketing-microservices/common";
-import { GetOrderService } from "@app/orders/usecases";
-import { OrderDocument } from "@app/orders/domain/models/order-document";
+import {
+  VerifyTheExistenceOfTheOrder,
+  VerifyTheUserIsTheOwnerOfTheOrder,
+} from "@app/orders/common/middlewares";
 
 export default class GetOrderRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -16,17 +16,11 @@ export default class GetOrderRouteController extends RouteControllerBase {
   configureRoutes(): express.Application {
     this.app.get(
       this.path,
+      VerifyTheExistenceOfTheOrder.verify,
+      VerifyTheUserIsTheOwnerOfTheOrder.verify,
       VerifyErrorMiddleware.verify,
       async (req: Request, res: Response) => {
-        const { id } = req.params;
-
-        const order: OrderDocument | null = await GetOrderService.get(id);
-
-        if (!order) throw new NotFoundError();
-
-        if (order.userId !== req.currentUser?.id) throw new NotAuthorizedError();
-
-        res.status(200).send({ order });
+        res.status(200).send({ order: req.order });
       }
     );
     return this.app;

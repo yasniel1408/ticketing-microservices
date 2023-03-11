@@ -1,6 +1,5 @@
 import { app } from "@app/app";
 import request from "supertest";
-import NatsClientWrapper from "@app/nats-client";
 import { CreateTicketService } from "@app/tickets/usecases";
 
 it("should return one order", async () => {

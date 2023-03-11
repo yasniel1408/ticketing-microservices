@@ -8,7 +8,6 @@ import {
   CreateOrderRouteController,
   GetAllOrdersByUserIdRouteController,
   GetOrderRouteController,
-  UpdateOrderRouteController,
 } from "@app/orders/api";
 
 import {
@@ -51,7 +50,6 @@ const routes: Array<RouteControllerBase> = [];
 routes.push(new CreateOrderRouteController(app));
 routes.push(new GetOrderRouteController(app));
 routes.push(new GetAllOrdersByUserIdRouteController(app));
-routes.push(new UpdateOrderRouteController(app));
 
 app.all("*", async () => {
   throw new NotFoundError();
