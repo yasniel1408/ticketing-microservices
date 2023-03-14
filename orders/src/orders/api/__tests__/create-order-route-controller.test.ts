@@ -18,24 +18,23 @@ it("return an error if ticket is already reserved", async () => {
     price: 10,
     title: "Title A",
   });
-  CreateOrderService.create(ticket?.id, "qwerqwerqwerqer").then(async () => {
-    await request(app)
-      .post("/api/orders")
-      .set("Cookie", global.signupAndGetCookie())
-      .send({ ticketId: ticket?.id })
-      .expect(400);
-  });
+  await CreateOrderService.create(ticket?.id, "qwerqwerqwerqer");
+  await request(app)
+    .post("/api/orders")
+    .set("Cookie", global.signupAndGetCookie())
+    .send({ ticketId: ticket?.id })
+    .expect(400);
 });
 
 it("reserved a ticket", async () => {
-  CreateTicketService.create({
+  const ticket = await CreateTicketService.create({
     price: 20,
     title: "Title B",
-  }).then(async (ticket) => {
-    await request(app)
-      .post("/api/orders")
-      .set("Cookie", global.signupAndGetCookie())
-      .send({ ticketId: ticket?.id })
-      .expect(201);
   });
+
+  await request(app)
+    .post("/api/orders")
+    .set("Cookie", global.signupAndGetCookie())
+    .send({ ticketId: ticket?.id })
+    .expect(201);
 });

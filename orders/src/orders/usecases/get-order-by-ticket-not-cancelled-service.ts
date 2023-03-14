@@ -1,21 +1,18 @@
 import { OrderRepository } from "@app/orders/domain";
 import { OrderStatus } from "@common-ticketing-microservices/common";
-import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
 import { OrderDocument } from "@app/orders/domain/models/order-document";
-import { GetTicketService } from "@app/tickets/usecases";
+import { ObjectId } from "mongoose";
 
 class GetOrderByTicketNotCancelledService {
-  async get(ticketId: string): Promise<OrderDocument | null> {
+  async get(ticketId: ObjectId): Promise<OrderDocument | null> {
     const statusArray = [
       OrderStatus.Created,
       OrderStatus.AwaitingPayment,
       OrderStatus.Complete,
     ];
 
-    const ticket: TicketDocument | null = await GetTicketService.get(ticketId);
-
     const order = await OrderRepository.getByTicketWithSomeStatus(
-      ticket!,
+      ticketId,
       statusArray
     );
     return order;

@@ -54,7 +54,15 @@ export default class CreateOrderRouteController extends RouteControllerBase {
         }
 
         // Salvar la orden en base de datos para el ticket que le pasamos con el user actual
-        const order = CreateOrderService.create(ticketId, req.currentUser?.id!);
+        const order = await CreateOrderService.create(
+          ticketId,
+          req.currentUser?.id!
+        );
+        if (!order) {
+          throw new BadRequestError(
+            `The ticket with id ${ticketId} do not has order`
+          );
+        }
 
         // await new TicketCreatedPublisher(NatsClientWrapper.client).publish({
         //   id: ticketCreated.id,

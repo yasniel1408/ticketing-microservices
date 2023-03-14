@@ -1,17 +1,17 @@
 import { OrderStatus } from "@common-ticketing-microservices/common";
 import { OrderDao } from "./models/order-dao";
 import { OrderDocument } from "./models/order-document";
-import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
+import { ObjectId } from "mongoose";
 
 class OrderRepository {
   async getByTicketWithSomeStatus(
-    ticket: TicketDocument,
+    ticketId: ObjectId,
     status: OrderStatus[]
   ): Promise<OrderDocument | null> {
     const order = await OrderDao.findOne({
-      ticket,
+      ticket: ticketId, // es es cualquiera
       status: {
-        $in: [...status], // de esta manera le decimos que queremos dado que el status sea algunos de los que le mandemos por parametros
+        $in: [...status], // de esta manera le decimos que queremos alguno que tenga dado los status que le mandemos por parametros
       },
     }).exec();
     return order;

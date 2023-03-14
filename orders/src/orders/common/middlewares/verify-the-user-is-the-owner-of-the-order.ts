@@ -8,9 +8,7 @@ import { NextFunction, Request, Response } from "express";
 
 class VerifyTheUserIsTheOwnerOfTheOrder {
   async verify(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params;
-
-    const order: OrderDocument | null = await GetOrderService.get(id);
+    const order: OrderDocument | undefined = req.order;
 
     // esto es para verificar que el order sea del user
     if (order?.userId !== req.currentUser?.id) throw new NotAuthorizedError();

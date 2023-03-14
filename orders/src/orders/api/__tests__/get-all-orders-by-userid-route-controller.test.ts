@@ -4,7 +4,7 @@ import { CreateTicketService } from "@app/tickets/usecases";
 import sleep from "@app/__mocks__/sleep";
 
 it("fetches orders for an particular user", async () => {
-  //crear 3 tickets
+  // crear 3 tickets
   const ticket1 = await CreateTicketService.create({
     price: 10,
     title: "dsgfdsgdsfg",
@@ -22,7 +22,7 @@ it("fetches orders for an particular user", async () => {
   const cookieUser1 = global.signupAndGetCookie();
   const cookieUser2 = global.signupAndGetCookie();
 
-  sleep(3000);
+  sleep(1000);
 
   // crear una order del ticke1 para el cookieUser1, y el ticket2 y ticket3 para el cookieUser2
   await request(app)
