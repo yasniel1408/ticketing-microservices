@@ -3,7 +3,6 @@ import { body } from "express-validator";
 import {
   BadRequestError,
   NotFoundError,
-  OrderStatus,
   RequiredUserAuthentication,
   RouteControllerBase,
   VerifyCurrentUser,

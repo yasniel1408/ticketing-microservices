@@ -1,7 +1,6 @@
 import { app } from "@app/app";
 import request from "supertest";
 import { CreateTicketService } from "@app/tickets/usecases";
-import sleep from "@app/__mocks__/sleep";
 
 it("fetches orders for an particular user", async () => {
   // crear 3 tickets
@@ -21,8 +20,6 @@ it("fetches orders for an particular user", async () => {
   // tener 2 usuarios diferentes
   const cookieUser1 = global.signupAndGetCookie();
   const cookieUser2 = global.signupAndGetCookie();
-
-  sleep(1000);
 
   // crear una order del ticke1 para el cookieUser1, y el ticket2 y ticket3 para el cookieUser2
   await request(app)
