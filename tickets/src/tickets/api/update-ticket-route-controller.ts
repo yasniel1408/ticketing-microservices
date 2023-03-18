@@ -12,6 +12,7 @@ import { body } from "express-validator";
 import { TicketRequestDto } from "./models/ticket-request-dto";
 import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
 import NatsClientWrapper from "@app/nats-client";
+import { TicketDocument } from "../domain/models/ticket-document";
 
 export default class UpdateTicketRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -41,20 +42,24 @@ export default class UpdateTicketRouteController extends RouteControllerBase {
         if (wantedTicket.userId !== req.currentUser?.id)
           throw new NotAuthorizedError();
 
-        const ticketId: string = await UpdateTicketService.update(id, {
-          title,
-          price,
-          userId: req.currentUser.id,
-        });
+        const ticketUpdated: TicketDocument = await UpdateTicketService.update(
+          id,
+          {
+            title,
+            price,
+            userId: req.currentUser.id,
+          }
+        );
 
         await new TicketUpdatedPublisher(NatsClientWrapper.client).publish({
-          id: wantedTicket.id,
-          title: title,
-          price: price,
+          id: ticketUpdated.id,
+          title: ticketUpdated.title,
+          price: ticketUpdated.price.valueOf(),
           userId: wantedTicket.userId,
+          version: ticketUpdated.version!,
         });
 
-        res.status(200).send({ ticketId });
+        res.status(200).send({ ticket: ticketUpdated });
       }
     );
     return this.app;

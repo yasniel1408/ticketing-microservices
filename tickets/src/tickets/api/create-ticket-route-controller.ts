@@ -1,15 +1,15 @@
-import express, {Request, Response} from "express";
-import {body} from "express-validator";
+import express, { Request, Response } from "express";
+import { body } from "express-validator";
 import {
-    RequiredUserAuthentication,
-    RouteControllerBase,
-    VerifyCurrentUser,
-    VerifyErrorMiddleware,
+  RequiredUserAuthentication,
+  RouteControllerBase,
+  VerifyCurrentUser,
+  VerifyErrorMiddleware,
 } from "@common-ticketing-microservices/common";
-import {CreateTicketService} from "@app/tickets/usecases";
-import {TicketRequestDto} from "./models/ticket-request-dto";
-import {TicketDocument} from "@app/tickets/domain/models/ticket-document";
-import {TicketCreatedPublisher} from "../events/publishers/ticket-created-publisher";
+import { CreateTicketService } from "@app/tickets/usecases";
+import { TicketRequestDto } from "./models/ticket-request-dto";
+import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
+import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
 import NatsClientWrapper from "@app/nats-client";
 
 export default class CreateTicketRouteController extends RouteControllerBase {
@@ -43,6 +43,7 @@ export default class CreateTicketRouteController extends RouteControllerBase {
           title: ticketCreated.title,
           price: ticketCreated.price.valueOf(),
           userId: ticketCreated.userId,
+          version: ticketCreated.version!,
         });
 
         res.status(201).send({ ticket: ticketCreated });

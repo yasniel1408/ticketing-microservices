@@ -18,7 +18,7 @@ class TicketCrudRepository implements CRUDRepository<TicketDto> {
     return user;
   }
 
-  async editById(id: string, resource: TicketDto): Promise<string> {
+  async editById(id: string, resource: TicketDto): Promise<TicketDocument> {
     const _id: Types.ObjectId = new mongoose.Types.ObjectId(id);
     const ticket = await TicketDao.findByIdAndUpdate(
       { _id },
@@ -26,7 +26,7 @@ class TicketCrudRepository implements CRUDRepository<TicketDto> {
       { new: true }
     ).exec();
     ticket!.save();
-    return id;
+    return ticket!;
   }
 
   async getById(id: string): Promise<TicketDocument | null> {

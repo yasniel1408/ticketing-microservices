@@ -17,6 +17,7 @@ class TicketCrudRepository implements CRUDRepository<TicketDto> {
       _id: resource.id,
       title: resource.title,
       price: resource.price,
+      version: resource.version, // esto es porque este servicio no es el que debe incrementar la version sino que deberia tomar la version que viene
     });
     await user.save();
     return user;
@@ -26,7 +27,14 @@ class TicketCrudRepository implements CRUDRepository<TicketDto> {
     const _id: Types.ObjectId = new mongoose.Types.ObjectId(id);
     const ticket = await TicketDao.findByIdAndUpdate(
       { _id },
-      { $set: resource },
+      {
+        $set: {
+          _id: resource.id,
+          title: resource.title,
+          price: resource.price,
+          version: resource.version, // esto es porque este servicio no es el que debe incrementar la version sino que deberia tomar la version que viene
+        },
+      },
       { new: true }
     ).exec();
     ticket?.save();

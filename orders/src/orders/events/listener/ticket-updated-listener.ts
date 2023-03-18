@@ -13,8 +13,8 @@ class TicketUpdatedListener extends BaseListener<TicketUpdatedEvent> {
   durableName: string = "orders-service-ticket-updated";
 
   async onMessage(data: TicketUpdatedEvent["data"], msg: Message) {
-    const { id, title, price } = data;
-    await UpdateTicketService.update(id, { title, price });
+    const { id, title, price, version } = data;
+    await UpdateTicketService.update(id, { title, price, version });
     msg.ack(); // este metodo es el que se debe ejecutar para decirle a NATS que se proceso correctamente de lo contrario volvera a reencolar la el evento
   }
 }
