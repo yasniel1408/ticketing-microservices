@@ -1,6 +1,6 @@
 import { TicketDao } from "@app/tickets/domain/models/ticket-dao";
 
-it("implements optimistic concurrency control", async () => {
+it("should up the version", async () => {
   const ticket = new TicketDao({
     title: "ExampleA",
     price: 200,
@@ -18,6 +18,24 @@ it("implements optimistic concurrency control", async () => {
   expect(firstInstance!.version).toEqual(1);
   await firstInstance?.save();
   expect(firstInstance!.version).toEqual(2);
+});
+
+it("should not throw error if version is not consecutive", async () => {
+  const ticket = new TicketDao({
+    title: "ExampleAAA",
+    price: 200,
+    userId: "qwerreq",
+  });
+  await ticket.save(); // aqui la version deberia ser 0
+
+  const firstInstance = await TicketDao.findByIdAndUpdate(
+    { _id: ticket.id },
+    { $set: { price: 90, version: 3 } },
+    { new: true }
+  ).exec();
+  const error = await firstInstance?.save();
+
+  expect(error?.version).toEqual(4);
 });
 
 // it("implements optimistic concurrency control", async () => {

@@ -29,6 +29,7 @@ it("should return an error if user is other", async () => {
   const ticket = await CreateTicketService.create({
     price: 20,
     title: "concert1",
+    version: 0,
   });
   const orderResponse = await request(app)
     .post("/api/orders")

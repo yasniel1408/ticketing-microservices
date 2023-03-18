@@ -2,7 +2,7 @@ import { app } from "@app/app";
 import request from "supertest";
 import { CreateTicketService } from "@app/tickets/usecases";
 import { OrderCrudRepository } from "@app/orders/domain";
-import {OrderStatus} from "@common-ticketing-microservices/common";
+import { OrderStatus } from "@common-ticketing-microservices/common";
 import NatsClientWrapper from "@app/nats-client";
 
 it("should return an error if user is other", async () => {
@@ -14,6 +14,7 @@ it("should return an error if user is other", async () => {
   const ticket = await CreateTicketService.create({
     price: 10,
     title: "Title A",
+    version: 0,
   });
 
   /**
@@ -40,7 +41,7 @@ it("should return an error if user is other", async () => {
   );
 
   expect(orderById?.status).toEqual(OrderStatus.Cancelled);
-  expect(NatsClientWrapper.client.publish).toHaveBeenCalled()
+  expect(NatsClientWrapper.client.publish).toHaveBeenCalled();
 });
 
-it.todo("emits a order cancelled event")
+it.todo("emits a order cancelled event");

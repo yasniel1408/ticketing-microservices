@@ -22,11 +22,16 @@ class TicketCrudRepository implements CRUDRepository<TicketDto> {
     const _id: Types.ObjectId = new mongoose.Types.ObjectId(id);
     const ticket = await TicketDao.findByIdAndUpdate(
       { _id },
-      { $set: resource },
+      {
+        $set: {
+          title: resource.title,
+          price: resource.price,
+        },
+      },
       { new: true }
     ).exec();
-    ticket!.save();
-    return ticket!;
+    const ticketUpdated = await ticket!.save();
+    return ticketUpdated;
   }
 
   async getById(id: string): Promise<TicketDocument | null> {
