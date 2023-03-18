@@ -50,7 +50,6 @@ export default class UpdateTicketRouteController extends RouteControllerBase {
             userId: req.currentUser.id,
           }
         );
-        console.log(ticketUpdated);
 
         await new TicketUpdatedPublisher(NatsClientWrapper.client).publish({
           id: ticketUpdated.id,

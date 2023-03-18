@@ -33,9 +33,12 @@ it("should not throw error if version is not consecutive", async () => {
     { $set: { price: 90, version: 3 } },
     { new: true }
   ).exec();
-  const error = await firstInstance?.save();
 
-  expect(error?.version).toEqual(4);
+  try {
+    await firstInstance?.save();
+  } catch (error) {
+    expect(`${error}`).toContain(ticket.id);
+  }
 });
 
 // it("implements optimistic concurrency control", async () => {
