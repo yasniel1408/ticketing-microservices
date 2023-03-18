@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { OrderDto } from "./order-dto";
 import { OrderDocument } from "./order-document";
 import { OrderStatus } from "@common-ticketing-microservices/common";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface OrderModel extends mongoose.Model<OrderDocument> {}
 
@@ -34,6 +35,9 @@ const orderSchema = new Schema<OrderDto>(
     },
   }
 );
+
+orderSchema.set("versionKey", "version");
+orderSchema.plugin(updateIfCurrentPlugin);
 
 const OrderDao = mongoose.model<OrderDocument, OrderModel>(
   "Order",

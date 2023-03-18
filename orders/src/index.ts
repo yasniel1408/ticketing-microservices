@@ -4,6 +4,8 @@ import {
 } from "@common-ticketing-microservices/common";
 import { app, routes } from "./app";
 import NatsClientWrapper from "./nats-client";
+import {TicketCreatedListener, TicketUpdatedListener} from "@app/orders/events/listener";
+import natsClient from "./nats-client";
 
 const start = async () => {
   if (!process.env.JWT_KEY) throw new Error("JWT_KEY undefined!!!");
@@ -34,6 +36,10 @@ const start = async () => {
     // capturamos con estos dos eventos del servidor cuando se cierre y cerramos correctamente la conexion con NATS
     process.on("SIGINT", () => NatsClientWrapper.client.close());
     process.on("SIGTERM", () => NatsClientWrapper.client.close());
+
+    new TicketCreatedListener(natsClient.client).listen();
+    new TicketUpdatedListener(natsClient.client).listen();
+
   });
 };
 

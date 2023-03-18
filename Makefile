@@ -14,5 +14,20 @@ down-dev:
 down-prod:
 	skaffold delete --filename='skaffold-prod.yaml'
 
+update-common:
+	cd common && npm run pub;
+
+update-services:
+	cd auth && npm install @common-ticketing-microservices/common@latest;
+	cd ..;
+	cd tickets && npm install @common-ticketing-microservices/common@latest;
+	cd ..;
+	cd orders && npm install @common-ticketing-microservices/common@latest;
+	cd ..;
+
+update-common-and-services:
+	make update-common;
+	make update-services;
+
 unrootify:
 	sudo chown -R $$(id -u):$$(id -g) .

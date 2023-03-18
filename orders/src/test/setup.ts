@@ -63,4 +63,4 @@ global.signupAndGetCookie = () => {
 };
 
 // cambiamos el tiempo de espera para teminar los test cuando son muy pesados los test
-jest.setTimeout(30000);
+jest.setTimeout(300000);

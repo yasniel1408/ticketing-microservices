@@ -14,6 +14,8 @@ import {
   VerifyTheExistenceOfTheOrder,
   VerifyTheUserIsTheOwnerOfTheOrder,
 } from "@app/orders/common/middlewares";
+import {OrderCancelledPublisher} from "@app/orders/events/publishers/order-cancelled-publisher";
+import NatsClientWrapper from "@app/nats-client";
 
 export default class CancelledOrderRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -29,11 +31,22 @@ export default class CancelledOrderRouteController extends RouteControllerBase {
       VerifyTheExistenceOfTheOrder.verify,
       VerifyTheUserIsTheOwnerOfTheOrder.verify,
       async (req: Request, res: Response) => {
+
+        const order = req.order!
+
         await ChangeStatusOrderToCancelledService.changeStatusToCancelled(
-          req.order!
+          order
         );
 
-        res.status(200).send({ ticketId: req.order!.id });
+        // publicar el evento cuando se le cambia el status a la orden
+         await new OrderCancelledPublisher(NatsClientWrapper.client).publish({
+           id: order.id,
+           ticket: {
+             id: order.ticket.id,
+           }
+         });
+
+        res.status(200).send({ order });
       }
     );
     return this.app;

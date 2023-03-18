@@ -20,11 +20,12 @@ class OrderCrudRepository implements CRUDRepository<OrderDto> {
 
   async editById(id: string, resource: OrderDto): Promise<string> {
     const _id: Types.ObjectId = new mongoose.Types.ObjectId(id);
-    await OrderDao.findByIdAndUpdate(
+    const order = await OrderDao.findByIdAndUpdate(
       { _id },
       { $set: resource },
       { new: true }
     ).exec();
+    order?.save();
     return id;
   }
 

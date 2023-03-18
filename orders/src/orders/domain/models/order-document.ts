@@ -8,5 +8,5 @@ export interface OrderDocument extends mongoose.Document {
   expiresAt: Date;
   userId: string;
   ticket: TicketDocument;
-  __v?: number;
+  version?: number;
 }

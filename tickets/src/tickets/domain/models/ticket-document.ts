@@ -5,5 +5,5 @@ export interface TicketDocument extends mongoose.Document {
   title: string;
   price: Number;
   userId: string;
-  __v?: number;
+  version?: number;
 }

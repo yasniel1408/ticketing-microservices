@@ -20,11 +20,12 @@ class TicketCrudRepository implements CRUDRepository<TicketDto> {
 
   async editById(id: string, resource: TicketDto): Promise<string> {
     const _id: Types.ObjectId = new mongoose.Types.ObjectId(id);
-    await TicketDao.findByIdAndUpdate(
+    const ticket = await TicketDao.findByIdAndUpdate(
       { _id },
       { $set: resource },
       { new: true }
     ).exec();
+    ticket!.save();
     return id;
   }
 
