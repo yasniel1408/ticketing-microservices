@@ -10,11 +10,11 @@ it("fetches orders for an particular user", async () => {
   });
   const ticket2 = await CreateTicketService.create({
     price: 20,
-    title: "Title 2",
+    title: "Title 2asdfsadf",
   });
   const ticket3 = await CreateTicketService.create({
     price: 30,
-    title: "Title 3",
+    title: "Title 3sadfsadfd",
   });
 
   // tener 2 usuarios diferentes
@@ -42,6 +42,6 @@ it("fetches orders for an particular user", async () => {
     .expect(200);
 
   expect(ticketsUser2.body.tickets.length).toEqual(2);
-  expect(ticketsUser2.body.tickets[0].ticket.title).toEqual("Title 2");
-  expect(ticketsUser2.body.tickets[1].ticket.title).toEqual("Title 3");
+  expect(ticketsUser2.body.tickets[0].ticket.title).toEqual(ticket2.title);
+  expect(ticketsUser2.body.tickets[1].ticket.title).toEqual(ticket3.title);
 });

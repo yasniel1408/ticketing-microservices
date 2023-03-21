@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: expiration-redis-service
+spec:
+  selector:
+    app: expiration-redis
+  type: ClusterIP
+  ports:
+    - name: expiration-redis
+      protocol: TCP
+      port: 6379
+      targetPort: 6379

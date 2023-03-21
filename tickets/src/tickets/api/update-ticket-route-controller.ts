@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import {
+  BadRequestError,
   NotAuthorizedError,
   NotFoundError,
   RequiredUserAuthentication,
@@ -10,9 +11,9 @@ import {
 import { GetTicketService, UpdateTicketService } from "@app/tickets/usecases";
 import { body } from "express-validator";
 import { TicketRequestDto } from "./models/ticket-request-dto";
-import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
 import NatsClientWrapper from "@app/nats-client";
 import { TicketDocument } from "../domain/models/ticket-document";
+import { TicketUpdatedPublisher } from "@app/tickets/events/publishers";
 
 export default class UpdateTicketRouteController extends RouteControllerBase {
   constructor(app: express.Application) {
@@ -38,6 +39,11 @@ export default class UpdateTicketRouteController extends RouteControllerBase {
         const wantedTicket = await GetTicketService.get(id);
 
         if (!wantedTicket) throw new NotFoundError();
+
+        if (wantedTicket.orderId)
+          throw new BadRequestError(
+            "Ticket is reserved, and not is editable now!"
+          );
 
         if (wantedTicket.userId !== req.currentUser?.id)
           throw new NotAuthorizedError();

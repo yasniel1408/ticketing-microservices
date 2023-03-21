@@ -7,13 +7,13 @@ class TicketRepository {
     return !!ticket;
   }
 
-  async ifExistByIdAndCurrentVersion(
+  async ifExistByIdAndPreviousVersion(
     id: string,
     version: number
   ): Promise<boolean> {
     const ticket = await TicketDao.findOne({
       _id: id,
-      version: version,
+      version: version - 1, // esto es para buscar por el id y la version anterior
     }).exec();
     return !!ticket;
   }

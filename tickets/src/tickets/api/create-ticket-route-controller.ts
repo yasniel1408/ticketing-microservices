@@ -9,7 +9,7 @@ import {
 import { CreateTicketService } from "@app/tickets/usecases";
 import { TicketRequestDto } from "./models/ticket-request-dto";
 import { TicketDocument } from "@app/tickets/domain/models/ticket-document";
-import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
+import { TicketCreatedPublisher } from "@app/tickets/events/publishers";
 import NatsClientWrapper from "@app/nats-client";
 
 export default class CreateTicketRouteController extends RouteControllerBase {

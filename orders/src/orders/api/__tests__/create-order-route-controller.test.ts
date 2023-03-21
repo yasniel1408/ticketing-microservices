@@ -31,7 +31,7 @@ it("return an error if ticket is already reserved", async () => {
 it("reserved a ticket and emits an order created event", async () => {
   const ticket = await CreateTicketService.create({
     price: 20,
-    title: "Title B",
+    title: "Title Bsdfasdfs",
   });
 
   await sleep(1000);

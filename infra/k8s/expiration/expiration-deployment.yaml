@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expiration-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expiration
+  template:
+    metadata:
+      labels:
+        app: expiration
+    spec:
+      containers:
+        - name: expiration
+          # image: "us.gcr.io/ticketing-microservices-369119/expiration:latest"  // GCP
+          image: "yasniel1408/expiration:latest"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "800m"
+          env:
+            - name: NATS_URL
+              value: "http://nats-service:4222"
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name # esto es para que tome el nombre del deployment tal cual ya que es unico asi podriamos saber en caso de tener multiples pods a cual hace refetencia
+            - name: NATS_CLUSTER
+              value: "ticketing"
+            - name: REDIS_HOST # esto es para decirle a redis q servicio va a conectarse a el
+              value: expiration-redis-service

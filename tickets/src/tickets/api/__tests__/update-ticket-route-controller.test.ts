@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { app } from "../../../app";
 import request from "supertest";
 import NatsClientWrapper from "@app/nats-client";
+import { CreateTicketService } from "@app/tickets/usecases";
 
 it("return a 404 if the provided id does not exist", async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -37,32 +38,31 @@ it("return a 401 if the user does not own the ticket", async () => {
 it("return a 400 if the user provides and invalid title or price", async () => {
   const cookies = global.signupAndGetCookie();
 
-  await request(app)
+  const ticket = await request(app)
     .post(`/api/tickets`)
     .set("Cookie", cookies)
     .send({
-      title: "Example",
+      title: "ExampleASDAdsasdad",
+      price: 10,
+    });
+
+  await request(app)
+    .put(`/api/tickets/${ticket.body.ticket.id!}`)
+    .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
+    .send({
+      title: "",
       price: 10,
     })
-    .then(async (ticket) => {
-      await request(app)
-        .put(`/api/tickets/${ticket.body.ticket.id!}`)
-        .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
-        .send({
-          title: "",
-          price: 10,
-        })
-        .expect(400);
+    .expect(400);
 
-      await request(app)
-        .put(`/api/tickets/${ticket.body.ticket.id}`)
-        .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
-        .send({
-          title: "Example222",
-          price: -10,
-        })
-        .expect(400);
-    });
+  await request(app)
+    .put(`/api/tickets/${ticket.body.ticket.id}`)
+    .set("Cookie", cookies) // aqui estamos accediendo con una cookie diferente
+    .send({
+      title: "Example222",
+      price: -10,
+    })
+    .expect(400);
 });
 
 it("update a ticket", async () => {
@@ -94,4 +94,25 @@ it("update a ticket", async () => {
   expect(ticketUpdated.body.ticket.title).toEqual("Example Updated");
   expect(ticketUpdated.body.ticket.price).toEqual(20);
   expect(NatsClientWrapper.client.publish).toHaveBeenCalled();
+});
+
+it("should give an error if the ticket is in order", async () => {
+  const cookies = global.signupAndGetCookie();
+
+  const ticket = await CreateTicketService.create({
+    title: "Example",
+    price: 20,
+    orderId: "sdfsg",
+    userId: "sdfsdfd",
+  });
+
+  await request(app)
+    // @ts-ignore
+    .put(`/api/tickets/${ticket.id}`)
+    .set("Cookie", cookies)
+    .send({
+      title: "Example Updated",
+      price: 20,
+    })
+    .expect(400);
 });

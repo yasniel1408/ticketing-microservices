@@ -6,8 +6,7 @@ import {
 import { Message } from "node-nats-streaming";
 import { queueGroupsName } from "@app/orders/events/listener/constants";
 import {
-  ExistTicketByIdAndVersionService,
-  GetTicketService,
+  ExistTicketByIdAndPreviousService,
   UpdateTicketService,
 } from "@app/tickets/usecases";
 
@@ -21,10 +20,10 @@ class TicketUpdatedListener extends BaseListener<TicketUpdatedEvent> {
 
     console.log(version);
 
-    // hay que verificar la version para que no cometamos errores de concurrencia, deberia estar la version anterior por eso el -1
-    const thereIsATicket = await ExistTicketByIdAndVersionService.exist(
+    // hay que verificar la version para que no cometamos errores de concurrencia, deberia estar la version anterior por eso el -1 en el repository
+    const thereIsATicket = await ExistTicketByIdAndPreviousService.exist(
       id,
-      version - 1
+      version
     );
     if (!thereIsATicket) throw Error("Last ticket not found!");
 

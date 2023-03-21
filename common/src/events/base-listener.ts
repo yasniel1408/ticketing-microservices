@@ -6,7 +6,7 @@ export default abstract class BaseListener<T extends BaseEvent> {
   abstract durableName: string;
   abstract queueGroupName: string;
   abstract onMessage(data: T["data"], msg: Message): void;
-  private client: Stan;
+  protected client: Stan;
   protected ackWait = 5 * 1000; // 5 segundos
 
   constructor(client: Stan) {

@@ -2,7 +2,7 @@ import { TicketDao } from "@app/tickets/domain/models/ticket-dao";
 
 it("should up the version", async () => {
   const ticket = new TicketDao({
-    title: "ExampleA",
+    title: "ExampleAatrtasrt",
     price: 200,
     userId: "qwerreq",
   });
@@ -22,7 +22,7 @@ it("should up the version", async () => {
 
 it("should not throw error if version is not consecutive", async () => {
   const ticket = new TicketDao({
-    title: "ExampleAAA",
+    title: "ExampleAAArtsrtsrtr",
     price: 200,
     userId: "qwerreq",
   });

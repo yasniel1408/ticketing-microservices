@@ -4,6 +4,14 @@ metadata:
   name: ticketing-microservices
 build:
   artifacts:
+    - image: yasniel1408/expiration
+      context: expiration
+      docker:
+        dockerfile: development.Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.ts"
     - image: yasniel1408/auth
       context: auth
       docker:
