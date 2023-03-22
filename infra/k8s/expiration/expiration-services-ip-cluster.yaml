@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: expiration-service
+spec:
+  selector:
+    app: expiration
+  type: ClusterIP
+  ports:
+    - name: expiration
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

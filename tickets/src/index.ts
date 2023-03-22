@@ -39,8 +39,8 @@ const start = async () => {
     process.on("SIGINT", () => NatsClientWrapper.client.close());
     process.on("SIGTERM", () => NatsClientWrapper.client.close());
 
-    new OrderCreatedListener(NatsClientWrapper.client);
-    new OrderCancelledListener(NatsClientWrapper.client);
+    new OrderCreatedListener(NatsClientWrapper.client).listen();
+    new OrderCancelledListener(NatsClientWrapper.client).listen();
   });
 };
 

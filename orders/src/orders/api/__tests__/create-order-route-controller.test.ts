@@ -3,7 +3,6 @@ import request from "supertest";
 import mongoose from "mongoose";
 import { CreateTicketService } from "@app/tickets/usecases";
 import { CreateOrderService } from "@app/orders/usecases";
-import sleep from "@app/__mocks__/sleep";
 import NatsClientWrapper from "@app/nats-client";
 
 it("return an error if ticket does not exist", async () => {
@@ -33,8 +32,6 @@ it("reserved a ticket and emits an order created event", async () => {
     price: 20,
     title: "Title Bsdfasdfs",
   });
-
-  await sleep(1000);
 
   await request(app)
     .post("/api/orders")

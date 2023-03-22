@@ -24,6 +24,8 @@ update-services:
 	cd ..;
 	cd orders && npm install @common-ticketing-microservices/common@latest;
 	cd ..;
+	cd expiration && npm install @common-ticketing-microservices/common@latest;
+	cd ..;
 
 update-common-and-services:
 	make update-common;

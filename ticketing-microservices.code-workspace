@@ -8,12 +8,20 @@
             "path": "client"
         },
         {
+            "name": "common",
+            "path": "common"
+        },
+        {
             "name": "auth",
             "path": "auth"
         },
         {
             "name": "orders",
             "path": "orders"
+        },
+        {
+            "name": "expiration",
+            "path": "expiration"
         },
         {
             "name": "payment",
@@ -29,7 +37,8 @@
             "ticketing-microservices",
             "client",
             "payment",
-            "nats-test"
+            "nats-test",
+            "common"
         ]
     }
 }
