@@ -2,6 +2,7 @@ import { OrderStatus } from "@common-ticketing-microservices/common";
 import { OrderDao } from "./models/order-dao";
 import { OrderDocument } from "./models/order-document";
 import { ObjectId } from "mongoose";
+import { OrderCrudRepository } from ".";
 
 class OrderRepository {
   async getByTicketWithSomeStatus(
@@ -23,6 +24,11 @@ class OrderRepository {
     })
       .populate("ticket")
       .exec();
+  }
+
+  async ifExistOrderById(id: string): Promise<boolean> {
+    const order = await OrderCrudRepository.getById(id);
+    return !!order;
   }
 }
 

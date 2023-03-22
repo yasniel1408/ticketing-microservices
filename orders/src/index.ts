@@ -4,7 +4,11 @@ import {
 } from "@common-ticketing-microservices/common";
 import { app, routes } from "./app";
 import NatsClientWrapper from "./nats-client";
-import {TicketCreatedListener, TicketUpdatedListener} from "@app/orders/events/listener";
+import {
+  ExpirationCompletedListener,
+  TicketCreatedListener,
+  TicketUpdatedListener,
+} from "@app/orders/events/listener";
 import natsClient from "./nats-client";
 
 const start = async () => {
@@ -39,7 +43,7 @@ const start = async () => {
 
     new TicketCreatedListener(natsClient.client).listen();
     new TicketUpdatedListener(natsClient.client).listen();
-
+    new ExpirationCompletedListener(natsClient.client).listen();
   });
 };
 
