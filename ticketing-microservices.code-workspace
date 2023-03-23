@@ -24,8 +24,8 @@
             "path": "expiration"
         },
         {
-            "name": "payment",
-            "path": "payment"
+            "name": "payments",
+            "path": "payments"
         },
         {
             "name": "tickets",

@@ -26,6 +26,8 @@ class ExpirationCompletedListener extends BaseListener<ExpirationCompleteEvent> 
 
     await ChangeStatusOrderToCancelledService.changeStatusToCancelled(order);
 
+    //TODO: aqui queda pendiente que la orden cuando se paga no tiene porque cancelarce pero esa logica la veremos luego
+
     new OrderCancelledPublisher(this.client).publish({
       id: order.id,
       version: order.version!,
