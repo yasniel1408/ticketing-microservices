@@ -6,7 +6,7 @@ import {
 import { Message } from "node-nats-streaming";
 import { queueGroupsName } from "@app/orders/events/listener/constants";
 import {
-  ExistTicketByIdAndPreviousService,
+  ExistTicketByIdAndPreviousVersionService,
   UpdateTicketService,
 } from "@app/tickets/usecases";
 
@@ -21,7 +21,7 @@ class TicketUpdatedListener extends BaseListener<TicketUpdatedEvent> {
     console.log(version);
 
     // hay que verificar la version para que no cometamos errores de concurrencia, deberia estar la version anterior por eso el -1 en el repository
-    const thereIsATicket = await ExistTicketByIdAndPreviousService.exist(
+    const thereIsATicket = await ExistTicketByIdAndPreviousVersionService.exist(
       id,
       version
     );

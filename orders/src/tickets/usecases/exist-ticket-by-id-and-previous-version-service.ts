@@ -1,9 +1,9 @@
 import { TicketRepository } from "@app/tickets/domain";
 
-class ExistTicketByIdAndPreviousService {
+class ExistTicketByIdAndPreviousVersionService {
   async exist(id: string, version: number): Promise<boolean> {
     return !!(await TicketRepository.ifExistByIdAndPreviousVersion(id, version));
   }
 }
 
-export default new ExistTicketByIdAndPreviousService();
+export default new ExistTicketByIdAndPreviousVersionService();

@@ -33,11 +33,11 @@ spec:
                 name: orders-service
                 port:
                   number: 3000
-          - path: /api/payment/?(.*)
+          - path: /api/payments/?(.*)
             pathType: Prefix
             backend:
               service:
-                name: payment-service
+                name: payments-service
                 port:
                   number: 3000
           - path: /?(.*)
