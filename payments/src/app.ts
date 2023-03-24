@@ -2,14 +2,15 @@ import express from "express";
 import "express-async-errors"; // esto resuelve el problea de lanzar errores en funciones con async
 import cookieSession from "cookie-session";
 import cors from "cors";
-import {json} from "body-parser";
+import { json } from "body-parser";
 import helmet from "helmet";
 import {
-    EnvironmentsVerification,
-    ErrorHandlerMiddleware,
-    NotFoundError,
-    RouteControllerBase,
+  EnvironmentsVerification,
+  ErrorHandlerMiddleware,
+  NotFoundError,
+  RouteControllerBase,
 } from "@common-ticketing-microservices/common";
+import { NewOrderRouteController } from "./payment/api";
 
 const whitelist = ["*"]; // arreglo con todos los fronts que va aceptar
 const corsOptions = {
@@ -41,7 +42,7 @@ app.use(
 const routes: Array<RouteControllerBase> = [];
 
 // Routes
-// routes.push(new CreateTicketRouteController(app));
+routes.push(new NewOrderRouteController(app));
 
 app.all("*", async () => {
   throw new NotFoundError();

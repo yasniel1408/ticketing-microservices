@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { CreateJwt } from "@common-ticketing-microservices/common";
 
 declare global {
-  var signupAndGetCookie: () => string[];
+  var signupAndGetCookie: (id?: string) => string[];
 }
 
 let mongo: any;
@@ -37,10 +37,10 @@ jest.mock("../nats-client");
 
 //esto es para evitar tener que hacer registro de users cada ves que se requiera pudiera estar en una funcion aparte pero esta es una manera elegante de resolver sin tener importanciones luego en todos los archivos de prueba
 //en este casi debemos devolver un ejemplo de jwt para simular un user autenticado
-global.signupAndGetCookie = () => {
+global.signupAndGetCookie = (id?: string) => {
   // 1- Crear JWT payload
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: "test@test.com",
   };
 

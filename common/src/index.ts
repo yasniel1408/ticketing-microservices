@@ -43,5 +43,9 @@ export { default as OrderCancelledEvent } from "./events/orders/order-cancelled-
 export { default as ExpirationSubjects } from "./events/expiration/expiration-subjects";
 export { default as ExpirationCompleteEvent } from "./events/expiration/expiration-complete-event";
 
+export { default as PaymentSubjects } from "./events/payments/order-subjects";
+export { default as PaymentCreatedEvent } from "./events/payments/payment-created-event";
+
+
 // TYPES
 export { default as OrderStatus } from "./types/order-status";

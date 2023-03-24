@@ -39,3 +39,8 @@ spec:
                   fieldPath: metadata.name # esto es para que tome el nombre del deployment tal cual ya que es unico asi podriamos saber en caso de tener multiples pods a cual hace refetencia
             - name: NATS_CLUSTER
               value: "ticketing"
+            - name: STRIPE_KEY # esta configuaracion de aca es para que tome los valores que hay del secret en el cluster y los tome como variable de entorno dentro del contenedor
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: STRIPE_KEY
