@@ -18,8 +18,6 @@ class TicketUpdatedListener extends BaseListener<TicketUpdatedEvent> {
   async onMessage(data: TicketUpdatedEvent["data"], msg: Message) {
     const { id, title, price, version } = data;
 
-    console.log(version);
-
     // hay que verificar la version para que no cometamos errores de concurrencia, deberia estar la version anterior por eso el -1 en el repository
     const thereIsATicket = await ExistTicketByIdAndPreviousVersionService.exist(
       id,

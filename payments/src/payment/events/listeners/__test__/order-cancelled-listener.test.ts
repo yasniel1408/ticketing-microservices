@@ -5,7 +5,11 @@ import {
 import mongoose from "mongoose";
 import NatsClientWrapper from "@app/nats-client";
 import OrderCancelledListener from "../order-cancelled-listener";
-import { CreateOrderService, GetOrderService } from "@app/orders/usecases";
+import {
+  CreateOrderService,
+  GetOrderService,
+  OrderByIdAndPreviousVersionService,
+} from "@app/orders/usecases";
 
 it("sets the userId of the cancelled ticket", async () => {
   const orderId = new mongoose.Types.ObjectId().toHexString();
@@ -41,7 +45,7 @@ it("sets the userId of the cancelled ticket", async () => {
   await listener.onMessage(data, msg);
 
   // write assertion to make sure a order was updated
-  const order = await GetOrderService.get(orderId);
+  const order = await OrderByIdAndPreviousVersionService.exist(orderId, 1);
   expect(order).toBeDefined();
   expect(order?.status).toEqual(OrderStatus.Cancelled);
 

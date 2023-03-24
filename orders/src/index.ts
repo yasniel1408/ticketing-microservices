@@ -9,7 +9,6 @@ import {
   TicketCreatedListener,
   TicketUpdatedListener,
 } from "@app/orders/events/listener";
-import natsClient from "./nats-client";
 
 const start = async () => {
   if (!process.env.JWT_KEY) throw new Error("JWT_KEY undefined!!!");
@@ -41,9 +40,9 @@ const start = async () => {
     process.on("SIGINT", () => NatsClientWrapper.client.close());
     process.on("SIGTERM", () => NatsClientWrapper.client.close());
 
-    new TicketCreatedListener(natsClient.client).listen();
-    new TicketUpdatedListener(natsClient.client).listen();
-    new ExpirationCompletedListener(natsClient.client).listen();
+    new TicketCreatedListener(NatsClientWrapper.client).listen();
+    new TicketUpdatedListener(NatsClientWrapper.client).listen();
+    new ExpirationCompletedListener(NatsClientWrapper.client).listen();
   });
 };
 

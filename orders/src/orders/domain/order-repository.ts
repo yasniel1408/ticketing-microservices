@@ -30,6 +30,16 @@ class OrderRepository {
     const order = await OrderCrudRepository.getById(id);
     return !!order;
   }
+
+  async updateStateById(
+    id: string,
+    status: OrderStatus
+  ): Promise<OrderDocument | null> {
+    const order = await OrderCrudRepository.getById(id);
+    order!.status = status;
+    await order!.save();
+    return order;
+  }
 }
 
 export default new OrderRepository();

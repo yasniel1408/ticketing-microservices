@@ -44,6 +44,7 @@ it("update order status to cancelled", async () => {
   const order = await GetOrderService.get(data.orderId);
   expect(order).toBeDefined();
   expect(order?.status).toEqual(OrderStatus.Cancelled);
+  expect(order?.version).not.toEqual(0);
 
   // write assertion to make sure ack function is called
   expect(msg.ack).toBeCalled();

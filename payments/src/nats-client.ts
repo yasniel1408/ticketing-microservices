@@ -3,7 +3,7 @@ import nats, {Stan} from "node-nats-streaming";
 class NatsClientWrapper {
   public _client?: Stan;
 
-  connect(clusterId: string, clientId: string, url: string) {
+  async connect(clusterId: string, clientId: string, url: string) {
     this._client = nats.connect(clusterId, clientId, { url });
 
     return new Promise<void>((resolve, reject) => {

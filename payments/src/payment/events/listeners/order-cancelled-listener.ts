@@ -19,6 +19,8 @@ class OrderCancelledListener extends BaseListener<OrderCancelledEvent> {
     data: OrderCancelledEvent["data"],
     msg: Message
   ): Promise<void> {
+    console.log(data.version);
+
     // buscar el orden que fue creado que coincida con version y id
     const order = await OrderByIdAndPreviousVersionService.exist(
       data.id,

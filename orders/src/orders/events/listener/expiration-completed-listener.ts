@@ -24,13 +24,16 @@ class ExpirationCompletedListener extends BaseListener<ExpirationCompleteEvent> 
 
     if (!order) throw new Error("Order not found!");
 
-    await ChangeStatusOrderToCancelledService.changeStatusToCancelled(order);
+    const orderUpdated =
+      await ChangeStatusOrderToCancelledService.changeStatusToCancelled(order);
+
+    if (!orderUpdated) throw new Error("Order not was cancelled!");
 
     //TODO: aqui queda pendiente que la orden cuando se paga no tiene porque cancelarce pero esa logica la veremos luego
 
     new OrderCancelledPublisher(this.client).publish({
       id: order.id,
-      version: order.version!,
+      version: orderUpdated?.version!,
       ticket: {
         id: order.ticket.id,
       },
