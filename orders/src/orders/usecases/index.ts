@@ -4,3 +4,4 @@ export { default as GetAllOrdersByUserIdService } from "./get-all-orders-by-user
 export { default as GetOrderService } from "./get-order-service";
 export { default as ChangeStatusOrderToCancelledService } from "./change-status-order-to-cancelled";
 export { default as ExistOrderService } from "./exist-order-service";
+export { default as ChangeStatusOrderToCompletedService } from "./change-status-order-to-compeleted";

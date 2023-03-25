@@ -2,6 +2,7 @@ import {
   BaseListener,
   ExpirationCompleteEvent,
   ExpirationSubjects,
+  OrderStatus,
 } from "@common-ticketing-microservices/common";
 import { Message } from "node-nats-streaming";
 import { queueGroupsName } from "@app/orders/events/listener/constants";
@@ -23,6 +24,8 @@ class ExpirationCompletedListener extends BaseListener<ExpirationCompleteEvent> 
     const order = await GetOrderService.get(orderId);
 
     if (!order) throw new Error("Order not found!");
+
+    if (order.status === OrderStatus.Complete) return msg.ack();
 
     const orderUpdated =
       await ChangeStatusOrderToCancelledService.changeStatusToCancelled(order);

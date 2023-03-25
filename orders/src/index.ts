@@ -8,6 +8,7 @@ import {
   ExpirationCompletedListener,
   TicketCreatedListener,
   TicketUpdatedListener,
+  PaymentCreatedListener,
 } from "@app/orders/events/listener";
 
 const start = async () => {
@@ -43,6 +44,7 @@ const start = async () => {
     new TicketCreatedListener(NatsClientWrapper.client).listen();
     new TicketUpdatedListener(NatsClientWrapper.client).listen();
     new ExpirationCompletedListener(NatsClientWrapper.client).listen();
+    new PaymentCreatedListener(NatsClientWrapper.client).listen();
   });
 };
 

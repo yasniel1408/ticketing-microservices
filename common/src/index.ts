@@ -39,6 +39,7 @@ export { default as TicketUpdatedEvent } from "./events/tickets/ticket-updated-e
 export { default as OrderSubjects } from "./events/orders/order-subjects";
 export { default as OrderCreatedEvent } from "./events/orders/order-created-event";
 export { default as OrderCancelledEvent } from "./events/orders/order-cancelled-event";
+export { default as OrderCompletedEvent } from "./events/orders/order-completed-event";
 
 export { default as ExpirationSubjects } from "./events/expiration/expiration-subjects";
 export { default as ExpirationCompleteEvent } from "./events/expiration/expiration-complete-event";
