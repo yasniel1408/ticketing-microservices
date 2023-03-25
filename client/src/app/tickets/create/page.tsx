@@ -1,24 +1,21 @@
 "use client";
 
-import { useState, useCallback, useContext } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import useRequest from "@/hooks/useRequest";
-import { AuthContext } from "@/context/AuthenticationProvider";
 
-const Signin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const CreateTicket = () => {
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
   const router = useRouter();
-  const { login } = useContext(AuthContext);
   const { doRequest, errors } = useRequest({
-    url: "/api/users/signin",
+    url: "/api/tickets",
     method: "post",
     onSuccess: useCallback(
       (data: any) => {
-        login(data.user);
-        router.push("/dashboard");
+        router.push("/");
       },
-      [router, login]
+      [router]
     ),
   });
 
@@ -26,37 +23,48 @@ const Signin = () => {
     event.preventDefault();
 
     await doRequest({
-      email,
-      password,
+      title,
+      price,
     });
+  };
+
+  const onBlur = async () => {
+    const value = parseFloat(price);
+
+    // eslint-disable-next-line no-restricted-globals
+    if (isNaN(value)) {
+      return;
+    }
+
+    setPrice(value.toFixed(2));
   };
 
   return (
     <form onSubmit={onSubmit} className="bg-light card p-5 m-lg-5 m-md-5">
-      <h1>Sign In</h1>
+      <h1>Create Ticket</h1>
       <div className="form-group">
-        <label>Email Address</label>
+        <label>Title</label>
         <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           className="form-control"
         />
       </div>
       <div className="form-group">
-        <label>Password</label>
+        <label>Price</label>
         <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
+          onBlur={onBlur}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
           className="form-control"
         />
       </div>
       {errors && JSON.stringify(errors)}
       <button type="submit" className="btn btn-primary mt-lg-4 mt-md-5 mt-sm-3">
-        Sign In
+        Create
       </button>
     </form>
   );
 };
 
-export default Signin;
+export default CreateTicket;

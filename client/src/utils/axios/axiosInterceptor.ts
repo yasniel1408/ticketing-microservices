@@ -1,5 +1,5 @@
-import { Axios } from 'axios';
-import headers from './axiosHeaders';
+import { Axios } from "axios";
+import headers from "./axiosHeaders";
 
 const axiosInterceptor = (axios: Axios) => {
   axios.interceptors.request.use(
@@ -10,7 +10,7 @@ const axiosInterceptor = (axios: Axios) => {
       //   }
       return request;
     },
-    (error: Error) => Promise.reject(error),
+    (error: Error) => Promise.reject(error)
   );
 };
 

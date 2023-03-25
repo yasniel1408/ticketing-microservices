@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 // add bootstrap css
-import 'bootstrap/dist/css/bootstrap.css';
-import { useContext, useLayoutEffect, useMemo } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import { AuthContext } from '@/context/AuthenticationProvider';
+import "bootstrap/dist/css/bootstrap.css";
+import { useContext, useLayoutEffect, useMemo } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { AuthContext } from "@/context/AuthenticationProvider";
 
 export default function Header() {
   const { user, isLogged } = useContext(AuthContext);
@@ -14,22 +14,20 @@ export default function Header() {
 
   const links = useMemo(
     () => [
-      { name: 'Home', link: '/', isProtected: false },
-      { name: 'Dashboard', link: '/dashboard', isProtected: true },
-      { name: 'Posts', link: '/posts', isProtected: false },
-      { name: 'Sign Up', link: '/signup', isProtected: false },
-      { name: 'Sign In', link: '/signin', isProtected: false },
-      { name: 'Sign Out', link: '/signout', isProtected: true },
+      { name: "Home", link: "/", isProtected: false },
+      { name: "Dashboard", link: "/dashboard", isProtected: true },
+      { name: "Posts", link: "/posts", isProtected: false },
+      { name: "Sign Up", link: "/signup", isProtected: false },
+      { name: "Sign In", link: "/signin", isProtected: false },
+      { name: "Sign Out", link: "/signout", isProtected: true },
     ],
-    [],
+    []
   );
-
-  console.log(pathname);
 
   useLayoutEffect(() => {
     links.forEach(({ link, isProtected }) => {
       if (!user && !isLogged && pathname === link && isProtected) {
-        router.push('/');
+        router.push("/");
       }
     });
   }, [isLogged, links, pathname, router, user]);
@@ -64,19 +62,20 @@ export default function Header() {
                 isProtected: boolean;
               }) => {
                 if (isProtected && !isLogged) return null;
-                if (isLogged && (link === '/signup' || link === '/signin')) return null;
+                if (isLogged && (link === "/signup" || link === "/signin"))
+                  return null;
                 return (
                   <li key={name} className="nav-item">
                     <Link
                       href={link}
-                      className={`nav-link ${pathname === link && 'active'}`}
+                      className={`nav-link ${pathname === link && "active"}`}
                       aria-current="page"
                     >
                       {name}
                     </Link>
                   </li>
                 );
-              },
+              }
             )}
           </ul>
           <div className="d-flex">

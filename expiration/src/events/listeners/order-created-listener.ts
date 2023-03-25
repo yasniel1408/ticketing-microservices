@@ -24,7 +24,7 @@ class OrderCreatedListener extends BaseListener<OrderCreatedEvent> {
         orderId: data.id,
       },
       {
-        delay: 10000, // 10 segundos
+        delay: 60000, // 60 segundos
       }
     );
 

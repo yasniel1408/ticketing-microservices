@@ -6,7 +6,9 @@ import mongoose, { Types } from "mongoose";
 
 class TicketCrudRepository implements CRUDRepository<TicketDto> {
   async findAll(limit = 10, page = 0): Promise<TicketDocument[]> {
-    return TicketDao.find()
+    return TicketDao.find({
+      orderId: undefined || null,
+    })
       .limit(limit)
       .skip(limit * page)
       .exec();

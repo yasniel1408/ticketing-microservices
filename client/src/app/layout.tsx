@@ -1,8 +1,9 @@
-import './globals.css';
-import { ReactNode } from 'react';
-import { headers } from 'next/headers';
-import { AuthenticationProvider } from '@/context/AuthenticationProvider';
-import Header from './components/Header/Header';
+import "./globals.css";
+import { ReactNode } from "react";
+import { headers } from "next/headers";
+import { AuthenticationProvider } from "@/context/AuthenticationProvider";
+import { baseURLCluster } from "@/constants";
+import Header from "./components/Header/Header";
 
 // Esta es la manera de hacer fetching de datos en Next 13
 // Y para el caso de los microservicios necesitamos comunicarnos
@@ -11,13 +12,10 @@ import Header from './components/Header/Header';
 const fetchCurrentUser = () => {
   const headersList = headers();
 
-  return fetch(
-    'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser',
-    {
-      cache: 'no-store',
-      headers: headersList,
-    },
-  ).then((res) => res.json());
+  return fetch(`${baseURLCluster}/api/users/currentuser`, {
+    cache: "no-store",
+    headers: headersList,
+  }).then((res) => res.json());
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {

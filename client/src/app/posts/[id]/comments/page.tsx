@@ -1,4 +1,4 @@
-import styles from './page.module.css';
+import styles from "./page.module.css";
 
 const fetchComments = async ({ id }: { id: number }) => {
   // await new Promise((resolve) => setTimeout(resolve, 4000));

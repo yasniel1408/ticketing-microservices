@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { useCallback, useContext, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import useRequest from '@/hooks/useRequest';
-import { AuthContext } from '@/context/AuthenticationProvider';
+import { useCallback, useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import useRequest from "@/hooks/useRequest";
+import { AuthContext } from "@/context/AuthenticationProvider";
 
 const Signout = () => {
   const router = useRouter();
   const { logout } = useContext(AuthContext);
 
   const { doRequest } = useRequest({
-    url: '/api/users/signout',
-    method: 'post',
+    url: "/api/users/signout",
+    method: "post",
     onSuccess: useCallback(
       (data: any) => {
         logout(null);
-        router.push('/signin');
+        router.push("/signin");
       },
-      [router, logout],
+      [router, logout]
     ),
   });
 

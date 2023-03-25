@@ -1,6 +1,5 @@
-import Link from 'next/link';
-import { LikeButton } from './components/LikeButton';
-import styles from './page.module.css';
+import Link from "next/link";
+import { LikeButton } from "./components/LikeButton";
 
 // Este es un componente que se carga desde el servidor por  lo que los hook no funcionan aca
 const fetchPosts = () => {
@@ -16,7 +15,7 @@ const fetchPosts = () => {
   //   }).then((res) => res.json());
 
   // Incremental staic regeneration
-  return fetch('https://jsonplaceholder.typicode.com/posts', {
+  return fetch("https://jsonplaceholder.typicode.com/posts", {
     next: {
       revalidate: 60,
     },
@@ -31,7 +30,10 @@ const Posts = async () => {
       <div className="row justify-content-center center w-100 gap-lg-4 gap-md-3 gap-sm-1">
         {posts.map((post: any) => {
           return (
-            <div className="card p-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 well" key={post.id}>
+            <div
+              className="card p-2 col-xl-3 col-lg-4 col-md-6 col-sm-12 well"
+              key={post.id}
+            >
               <Link href="/posts/[id]" as={`/posts/${post.id}`}>
                 <h1 className="card-header">{post.title}</h1>
                 <p className="card-body">{post.body}</p>

@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useCallback, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import useRequest from '@/hooks/useRequest';
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import useRequest from "@/hooks/useRequest";
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const router = useRouter();
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const { doRequest, errors } = useRequest({
-    url: '/api/users/signup',
-    method: 'post',
+    url: "/api/users/signup",
+    method: "post",
     onSuccess: useCallback(
       (data: any) => {
-        router.push('/signin');
+        router.push("/signin");
       },
-      [router],
+      [router]
     ),
   });
 
@@ -33,7 +33,11 @@ const Signup = () => {
       <h1>Sign Up</h1>
       <div className="form-group">
         <label>Email Address</label>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" />
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="form-control"
+        />
       </div>
       <div className="form-group">
         <label>Password</label>

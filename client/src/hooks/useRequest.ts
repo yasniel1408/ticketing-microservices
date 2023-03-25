@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import axiosInstance from '@/utils/axios/axiosInstance';
+import axiosInstance from "@/utils/axios/axiosInstance";
+import { useCallback, useState } from "react";
 
 const useRequest = ({
   url,
@@ -33,7 +33,7 @@ const useRequest = ({
       }
       return null;
     },
-    [method, onSuccess, url],
+    [method, onSuccess, url]
   );
 
   return { doRequest, errors };

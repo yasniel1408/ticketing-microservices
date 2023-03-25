@@ -1,16 +1,19 @@
-import axios, { AxiosInstance } from 'axios';
-import axiosInterceptor from './axiosInterceptor';
+import { baseURLCluster } from "@/constants";
+import axios, { AxiosInstance } from "axios";
+import axiosInterceptor from "./axiosInterceptor";
 
-// const buildClient = () => {
-//   if (typeof window === 'undefined') {
-//     return axios.create({
-//       baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
-//     });
-//   }
-//   return axios.create();
-// };
+const buildClient = () => {
+  if (typeof window === "undefined") {
+    return axios.create({
+      baseURL: baseURLCluster,
+    });
+  }
+  return axios.create({
+    baseURL: "/",
+  });
+};
 
-const axiosInstance: AxiosInstance = axios.create();
+const axiosInstance: AxiosInstance = buildClient();
 
 axiosInterceptor(axiosInstance);
 
