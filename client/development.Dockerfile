@@ -6,8 +6,6 @@ WORKDIR /usr/src
 
 RUN npm install
 
-RUN npm install -g npm@9.6.2
-
 COPY ["./", "/usr/src/"]
 
 EXPOSE 3000

@@ -18,8 +18,8 @@ spec:
           image: "yasniel1408/client:latest"
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "250m"
+              memory: "500Mi"
+              cpu: "550m"
             limits:
-              memory: "512Mi"
-              cpu: "800m"
+              memory: "1512Mi"
+              cpu: "1800m"

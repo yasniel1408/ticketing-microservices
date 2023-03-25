@@ -1,11 +1,4 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cSpell.words": [
-    "caso",
-    "datos",
-    "Esta",
-    "hacer",
-    "manera"
-  ]
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
