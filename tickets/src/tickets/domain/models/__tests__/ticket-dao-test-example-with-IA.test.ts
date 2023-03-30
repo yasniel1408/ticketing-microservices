@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { TicketDao } from "../ticket-dao";
 
 describe("Ticket Model", () => {
