@@ -1,3 +1,7 @@
+# Arquitectura
+![Texto alternativo](img.png)
+
+
 # Skaffold
 
 ```
