@@ -14,7 +14,7 @@ const fetchPosts = () => {
   //                           y se cargarian solo la ves que hacemos build
   //   }).then((res) => res.json());
 
-  // Incremental staic regeneration
+  // Incremental static regeneration
   return fetch("https://jsonplaceholder.typicode.com/posts", {
     next: {
       revalidate: 60,
