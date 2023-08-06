@@ -30,4 +30,4 @@ spec:
                   name: jwt-secret
                   key: JWT_KEY
             - name: MONGO_URI
-              value: 'mongodb://tickets-mongodb-service:27017'
+              value: "mongodb://tickets-mongodb-service:27017"
