@@ -1,5 +1,5 @@
-import { baseURLCluster } from "@/constants";
 import { headers } from "next/headers";
+import { baseURLCluster } from "@/constants";
 import PurchaseButton from "./components/PurchaseButton";
 
 const fetchTicket = async ({ id }: { id: number }) => {

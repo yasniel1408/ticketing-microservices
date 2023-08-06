@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useCallback } from "react";
-import useRequest from "@/hooks/useRequest";
 import { useRouter } from "next/navigation";
+import useRequest from "@/hooks/useRequest";
 
 const PurchaseButton = ({ ticketId }: any) => {
   const router = useRouter();

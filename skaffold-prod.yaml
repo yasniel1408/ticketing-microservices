@@ -17,7 +17,7 @@ build:
     - image: us.gcr.io/ticketing-microservices-369119/tickets
       context: tickets
       docker:
-        dockerfile: development.Dockerfile
+        dockerfile: Dockerfile
       sync:
         manual:
           - dest: .

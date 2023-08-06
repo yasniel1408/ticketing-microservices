@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Context,
@@ -8,10 +8,10 @@ import {
   useEffect,
   useMemo,
   useState,
-} from 'react';
-import { IUserAuthentication } from '@/models/UserAuthentication';
-import { IUserAuthenticationProvider } from '@/app/interfaces/UserAuthenticationProvider';
-import LoadingSpinner from '@/app/components/LoadingSpinner/LoadingSpinner';
+} from "react";
+import { IUserAuthentication } from "@/models/UserAuthentication";
+import { IUserAuthenticationProvider } from "@/app/interfaces/UserAuthenticationProvider";
+import LoadingSpinner from "@/app/components/LoadingSpinner/LoadingSpinner";
 
 export const AuthContext: Context<IUserAuthenticationProvider> =
   createContext<IUserAuthenticationProvider>({
@@ -30,7 +30,9 @@ export function AuthenticationProvider({
   currentUser?: IUserAuthentication;
 }) {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<{ email: string; name: string } | null>(null);
+  const [user, setUser] = useState<{ email: string; name: string } | null>(
+    null
+  );
   const [isLogged, setIsLogged] = useState(false);
 
   const logout = useCallback(() => {
@@ -52,10 +54,12 @@ export function AuthenticationProvider({
 
   const value = useMemo(
     () => ({ user, setUser, logout, login, isLogged }),
-    [isLogged, login, logout, user],
+    [isLogged, login, logout, user]
   );
 
   if (loading) return <LoadingSpinner />;
 
-  return <AuthContext.Provider value={{ ...value }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ ...value }}>{children}</AuthContext.Provider>
+  );
 }
