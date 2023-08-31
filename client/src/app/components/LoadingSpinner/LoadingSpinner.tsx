@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
 export default function LoadingSpinner() {
   return (
     <div
       style={{
-        height: '40vh',
-        alignContent: 'center',
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        height: "40vh",
+        alignContent: "center",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <div className="spinner-border text-primary" role="status">
